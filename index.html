@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Sanitätsprüfung — Simulation</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+<main class="app">
+    <header class="top">
+        <h1>Sanitätsprüfung — Simulation</h1>
+        <p class="subtitle">Starte eine Fall-Simulation, frage Werte ab oder speichere Maßnahmen.</p>
+    </header>
+
+    <section class="controls">
+        <button id="startBtn" class="btn primary">Neue Simulation starten</button>
+        <button id="endBtn" class="btn danger" disabled>Simulation beenden</button>
+        <button id="resetBtn" class="btn" disabled>Zurücksetzen</button>
+    </section>
+
+    <section class="game">
+        <aside class="scenario card" id="scenarioCard">
+            <h2>Ursprungssituation</h2>
+            <div id="scenarioText" class="scenario-text">Drücke "Neue Simulation starten" um loszulegen.</div>
+            <div class="meta" id="scenarioMeta"></div>
+        </aside>
+        <div class="interaction">
+            <div class="input-fields">
+                <div class="card input-card">
+                    <h3>Wert erfragen</h3>
+                    <p>Gib einen Feldnamen ein (z. B. <code>Blutdruck</code>, <code>Puls</code>, <code>Symptom</code>)
+                    </p>
+                    <input id="queryInput" placeholder="z. B. Blutdruck"/>
+                    <button id="askBtn" class="btn">Frage Wert</button>
+                    <div id="askResult" class="result"></div>
+                </div>
+<p></p>
+                <div class="card input-card">
+                    <h3>Maßnahme speichern</h3>
+                    <p>Tippe eine Maßnahme ein und speichere sie.</p>
+                    <input id="measureInput" placeholder="z. B. Sauerstoff, stabile Seitenlage"/>
+                    <button id="saveMeasureBtn" class="btn">Maßnahme speichern</button>
+                    <div id="measureList" class="result"></div>
+                </div>
+            </div>
+
+            <div class="card log-card">
+                <h3>Verlauf</h3>
+                <div id="logArea" class="log"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="summary" class="modal hidden">
+        <div class="modal-content">
+            <h2>Zusammenfassung der Simulation</h2>
+            <div id="summaryContent"></div>
+            <div class="modal-actions">
+                <button id="closeSummary" class="btn">Schließen</button>
+                <button id="newAfterSummary" class="btn primary">Neue Simulation</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>
