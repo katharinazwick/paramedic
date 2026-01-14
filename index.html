@@ -24,23 +24,22 @@
             <h2>Ursprungssituation</h2>
             <div id="scenarioText" class="scenario-text">Drücke "Neue Simulation starten" um loszulegen.</div>
             <div class="meta" id="scenarioMeta"></div>
+            <div id="statusContainer">
+                <div id="statusBar"></div>
+            </div>
         </aside>
         <div class="interaction">
             <div class="input-fields">
                 <div class="card input-card">
                     <h3>Wert erfragen</h3>
-                    <p>Gib einen Feldnamen ein (z. B. <code>Blutdruck</code>, <code>Puls</code>, <code>Symptom</code>)
                     </p>
-                    <input id="queryInput" placeholder="z. B. Blutdruck"/>
-                    <button id="askBtn" class="btn">Frage Wert</button>
+                    <select id="queryInput"></select>
                     <div id="askResult" class="result"></div>
                 </div>
-<p></p>
+                <p></p>
                 <div class="card input-card">
                     <h3>Maßnahme speichern</h3>
-                    <p>Tippe eine Maßnahme ein und speichere sie.</p>
-                    <input id="measureInput" placeholder="z. B. Sauerstoff, stabile Seitenlage"/>
-                    <button id="saveMeasureBtn" class="btn">Maßnahme speichern</button>
+                    <select id="measureInput"></select>
                     <div id="measureList" class="result"></div>
                 </div>
             </div>
