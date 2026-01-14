@@ -19,5 +19,12 @@ export function getElement() {
     }
 }
 
-///TODO: code aufsplitten, pop up darf nicht transparent sein, ggf auswahl an elementen statt schreiben oder autokorrektur und irgendwo legende
-/// ansicht ändern so dass verlauf ganzes feld bekommt
+///TODO:
+/*
+1. css überarbeiten
+2. cases: Maßnahmen & Contraindikation, Atemfrequenz, Altersabhängigkeit, weitere Erkrankungen & Nebenfälle inkludieren ggf. neue Contras oder manuell (Schock)
+3.timer => roter Balken (auch bei contra)
+4. rtw bericht wenn gewonnen (mit auswertung und korrektur zwecks sampler)
+5. code aufsplitten
+6. online stellen
+ */
