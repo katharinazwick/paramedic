@@ -15,8 +15,9 @@
 
     <section class="controls">
         <button id="startBtn" class="btn primary">Neue Simulation starten</button>
-        <button id="endBtn" class="btn danger" disabled>Simulation beenden</button>
+        <button id="endBtn" class="btn danger" disabled>Simulation auswerten</button>
         <button id="resetBtn" class="btn" disabled>Zurücksetzen</button>
+        <button id="expansionBtn" class="btn expansion" disabled>Patient an RTW übergeben</button>
     </section>
 
     <section class="game">
@@ -57,10 +58,12 @@
             <div id="summaryContent"></div>
             <div class="modal-actions">
                 <button id="closeSummary" class="btn">Schließen</button>
-                <button id="newAfterSummary" class="btn primary">Neue Simulation</button>
             </div>
         </div>
     </section>
+
+    </div>
+
 </main>
 
 <script type="module" src="src/app.js"></script>
