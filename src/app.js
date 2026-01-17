@@ -2,11 +2,16 @@ import {cases} from './data/cases.js';
 //import {renderMeasures} from './measures/renderMeasure.js';
 import {generateValueSelect} from "./selects/valueOptions.js";
 import {generateMeasureSelect} from "./selects/measureOption.js";
+import {allergy, preExistingConditions, healthStatuts, medications} from "./enum/sampler.js";
+import {causes, causesArray} from "./enum/causes.js";
+
+
 
 // DOM
 const startBtn = document.getElementById('startBtn');
 const endBtn = document.getElementById('endBtn');
 const resetBtn = document.getElementById('resetBtn');
+const expansionBtn = document.getElementById('expansionBtn');
 const scenarioText = document.getElementById('scenarioText');
 const scenarioMeta = document.getElementById('scenarioMeta');
 const queryInput = document.getElementById('queryInput');
@@ -17,8 +22,6 @@ const logArea = document.getElementById('logArea');
 const summaryModal = document.getElementById('summary');
 const summaryContent = document.getElementById('summaryContent');
 const closeSummary = document.getElementById('closeSummary');
-const newAfterSummary = document.getElementById('newAfterSummary');
-const handoverSubmit = document.getElementById('handoverSubmit');
 
 let current = null;
 let userValues = {};
@@ -27,31 +30,6 @@ let askedHistory = [];
 let lastActionTime = null;
 let decayTimer = null;
 let endReason = null;
-let awaitingHandover = false;
-let handoverData = {};
-
-
-
-function changeState(delta, reason) {
-    updateStateUI();
-    if (!current) return;
-
-    current.state += delta;
-    if (current.state > current.maxState) current.state = current.maxState;
-    if (current.state < current.minState) current.state = current.minState;
-
-    log(`Zustand ${delta > 0 ? '▲' : '▼'} (${reason}) → ${current.state}`);
-
-    /*if (current.state === 0) {
-        log('⚠ Patient verstorben / Zustand kritisch');
-        endSimulation();
-    }*/
-    // Erfolg
-    /*if (current.state === current.maxState) {
-        log('✅ Patient stabilisiert – alle Maßnahmen korrekt');
-        endSimulation();
-    }*/
-}
 
 function startDecayTimer() {
     if (decayTimer) clearInterval(decayTimer);
@@ -99,6 +77,7 @@ function log(msg) {
 function enableGame(b) {
     endBtn.disabled = !b;
     resetBtn.disabled = !b;
+    expansionBtn.disabled = !b;
 }
 
 function startSimulation() {
@@ -178,9 +157,7 @@ function saveMeasure() {
         current.progress = 0;
         updateStateUI();
         endReason = "contra";
-        log(`❌ SCHWERE FEHLER: Kontraindikation (${text})`);
-        log('☠ Patient verstorben - schaue dir die Auswertung an');
-        //endSimulation();
+        endSimulation();
         return;
     }
 
@@ -193,14 +170,12 @@ function saveMeasure() {
     }
     if (current.progress >= 1) { //beendet sofort kein platz für sampler
         endReason = "success"
-        //startHandover();
         log('✅ Patient stabilisiert – Zeit für Betreuung');
-        endSimulation(); //soll durch rtw ersetzt werden
     }
-    if (current.progress <= 0) {
+    /*if (current.progress <= 0) {
         endReason = "timeout";
         endSimulation();
-    }
+    }*/
 
 }
 
@@ -224,33 +199,16 @@ function endSimulation() {
     switch (endReason) {
         case "success":
             resultText = '✅ <strong>Patient stabilisiert</strong> – alle Maßnahmen korrekt durchgeführt.';
-           /* const checks = [
-                ["Puls", handoverData.puls, current.puls],
-                ["Blutdruck", handoverData.bloodPressure, current.bloodPressure],
-                ["Vorerkrankungen", handoverData.preExistingConditions, current.preExistingConditions],
-                ["Medikamente", handoverData.medications, current.medications],
-                ["Ursache", handoverData.cause, current.cause]
-            ];
-
-            for (const [label, userVal, realVal] of checks) {
-                const ok = userVal == realVal;
-                html += `<li><strong>${label}:</strong> ${userVal || '—'}
-                 ${ok ? '<span style="color:green">✔</span>' : `<span style="color:red">✖ (korrekt: ${realVal})</span>`}
-                 </li>`;
-            }
-
-            html += `</ul>`;*/
             break;
         case "contra":
-            resultText = '❌ <strong>Patient verstorben</strong> – Kontraindikation angewendet.';
+            resultText = '❌ <strong>Patient verstorben</strong> – Kontraindikation angewendet';
             break;
-        case "timeout":
+        /*case "timeout":
             resultText = '⚠ <strong>Patient verstorben</strong> – zu lange keine wirksamen Maßnahmen.';
-            break;
+            break;*/
         default:
             resultText = 'ℹ Simulation beendet.';
     }
-    console.log(endReason);
     const correct = current; // reference
     let html = `<h2>Ergebnis</h2><p>${resultText}</p>`;
     html += `<h3>Ursprungssituation</h3><p>${correct.initialSituation}</p>`;
@@ -279,13 +237,66 @@ function endSimulation() {
 
     const missing = correct.measures.filter(x => !userMeasures.includes(x));
     html += `<h3>Fehlende Maßnahmen</h3><p>${missing.join(', ')}</p>`;
-    html += `<h3>Ursache</h3><p><strong>${correct.cause}</strong></p>`;
 
     summaryContent.innerHTML = html;
     summaryModal.classList.remove('hidden');
-    log('Simulation beendet — Zusammenfassung angezeigt');
     enableGame(false);
 }
+
+function renderSelect(label, name, options) {
+    return `
+        <label>
+            ${label}
+            <select name="${name}">
+                <option value="" selected disabled>Bitte auswählen</option>
+                ${options.map(o => `<option value="${o}">${o}</option>`).join("")}
+            </select>
+        </label>
+    `;
+}
+
+function expansionSimulation() {
+    if (decayTimer) clearInterval(decayTimer);
+
+    let html = `
+        <h2>Übergabe an den Rettungsdienst</h2>
+
+        <div class="summary-section">
+            <h3>Ursprungssituation</h3>
+            <p>${current.initialSituation}</p>
+        </div>
+
+        <div class="summary-section">
+            <h3>Übergabedaten</h3>
+
+            <div class="handover-form">
+                ${renderSelect("Ursache", "cause", causesArray)}
+                ${renderSelect("Vorerkrankungen", "preExistingConditions", preExistingConditions)}
+                ${renderSelect("Allergien", "allergies", allergy)}
+                ${renderSelect("Medikamente", "medications", medications)}
+
+                <label>
+                    Puls
+                    <input type="number" name="puls" placeholder="bpm">
+                </label>
+
+                <label>
+                    Blutdruck
+                    <input type="text" name="bloodPressure" placeholder="z.B. 120/80">
+                </label>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button id="handoverConfirm" class="btn primary">Übergabe bestätigen</button>
+        </div>
+    `;
+
+    summaryContent.innerHTML = html;
+    summaryModal.classList.remove("hidden");
+    enableGame(false);
+}
+
 
 
 function resetAll() {
@@ -315,12 +326,10 @@ function resetAll() {
     });
     endBtn.addEventListener('click', endSimulation);
     resetBtn.addEventListener('click', resetAll);
+    expansionBtn.addEventListener('click', expansionSimulation);
     closeSummary.addEventListener('click', () => summaryModal.classList.add('hidden'));
-    newAfterSummary.addEventListener('click', () => {
-        summaryModal.classList.add('hidden');
-        startSimulation();
-    });
-    handoverSubmit.addEventListener('click', submitHandover);
+    closeSummary.addEventListener('click', () => resetAll());
+    //handoverSubmit.addEventListener('click', submitHandover);
 
 }
 
