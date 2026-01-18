@@ -1,10 +1,8 @@
-import {cases} from './data/cases.js';
-//import {renderMeasures} from './measures/renderMeasure.js';
+import {cases, generateCases} from './data/cases.js';
 import {generateValueSelect} from "./selects/valueOptions.js";
 import {generateMeasureSelect} from "./selects/measureOption.js";
-import {allergy, preExistingConditions, healthStatuts, medications} from "./enum/sampler.js";
-import {causes, causesArray} from "./enum/causes.js";
-
+import {allergy, preExistingConditions, medications} from "./enum/sampler.js";
+import {causesArray} from "./enum/causes.js";
 
 
 // DOM
@@ -67,7 +65,6 @@ function updateStateUI() {
 }
 
 
-
 function log(msg) {
     const d = document.createElement('div');
     d.textContent = `${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})} — ${msg}`;
@@ -83,6 +80,8 @@ function enableGame(b) {
 function startSimulation() {
 // zufällig eines der Szenarien wählen
     current = cases[Math.floor(Math.random() * cases.length)];
+    //current = generateCases();
+    console.log(current);
     current.progress = 0.5; // 50 %
     current.step = 0.5 / current.measures.length; // z. B. 0.25 bei 4 Maßnahmen
     updateStateUI();
@@ -207,19 +206,17 @@ function endSimulation() {
             resultText = '⚠ <strong>Patient verstorben</strong> – zu lange keine wirksamen Maßnahmen.';
             break;*/
         default:
-            resultText = 'ℹ Simulation beendet.';
+            resultText = 'Simulation beendet.';
     }
     const correct = current; // reference
-    let html = `<h2>Ergebnis</h2><p>${resultText}</p>`;
+    let html = `<h2>Zusammenfassung der Simulation</h2><p>${resultText}</p>`;
     html += `<h3>Ursprungssituation</h3><p>${correct.initialSituation}</p>`;
     html += `<h3>Deine abgefragten Werte</h3>`;
     if (askedHistory.length === 0) html += `<p><em>Du hast keine Werte abgefragt.</em></p>`;
     else {
         html += `<ul>`;
         for (const a of askedHistory) {
-            const correctValue = correct[a.key];
-            const userValue = userValues[a.key];
-            html += `<li><strong>${a.key}:</strong> Dein Ergebnis: ${Array.isArray(userValue) ? userValue.join(', ') : userValue} — korrekt: ${Array.isArray(correctValue) ? correctValue.join(', ') : correctValue}</li>`;
+            html += `<li><strong>${a.key}: </strong> ${a.value}</li>`;
         }
         html += `</ul>`;
     }
@@ -257,7 +254,6 @@ function renderSelect(label, name, options) {
 
 function expansionSimulation() {
     if (decayTimer) clearInterval(decayTimer);
-
     let html = `
         <h2>Übergabe an den Rettungsdienst</h2>
 
@@ -289,6 +285,7 @@ function expansionSimulation() {
 
         <div class="modal-actions">
             <button id="handoverConfirm" class="btn primary">Übergabe bestätigen</button>
+            <button id="endBtn" class="btn primary">Simulation auswerten</button>
         </div>
     `;
 
@@ -297,9 +294,75 @@ function expansionSimulation() {
     enableGame(false);
 }
 
+function getRawHandoverValues(current) {
+    return {
+        cause: current.typ,
+        preExistingConditions: current.preExistingConditions,
+        allergies: current.allergy,
+        medications: current.medications,
+        puls: parseInt(current.puls), // "120/min" → 120
+        bloodPressure: current.bloodPressure
+    };
+}
+
+function isCorrect(expected, actual) {
+    if (expected === undefined) return true;
+    if (expected === null) return true;
+
+    // Zahlenvergleich (z. B. Puls)
+    if (!isNaN(expected)) {
+        return Math.abs(Number(expected) - Number(actual)) <= 5; // Toleranz
+    }
+
+    return expected.toString() === actual.toString();
+}
+
+function setFeedbackForInput(input, correct, expected) {
+    let feedback = input.parentElement.querySelector(".feedback");
+
+    if (!feedback) {
+        feedback = document.createElement("span");
+        feedback.className = "feedback";
+        input.parentElement.appendChild(feedback);
+    }
+
+    if (correct) {
+        feedback.innerHTML = " ✅";
+        feedback.style.color = "green";
+    } else {
+        feedback.innerHTML = ` ❌ <span class="solution">(${expected})</span>`;
+        feedback.style.color = "red";
+    }
+}
+
+function validateHandoverFields(current) {
+    const inputs = document.querySelectorAll(".handover-form input, .handover-form select");
+    const raw = getRawHandoverValues(current);
+
+    inputs.forEach(input => {
+        const name = input.name;
+        const expected = raw[name];
+        const actual = input.value.trim();
+
+        const correct = isCorrect(expected, actual);
+        setFeedbackForInput(input, correct, expected);
+    });
+}
+
+document.addEventListener("click", (e) => {
+    if (e.target.id === "handoverConfirm") {
+        validateHandoverFields(current);
+    }
+});
+document.addEventListener("click", (e) => {
+    if (e.target.id === "endBtn") {
+        endSimulation();
+    }
+});
 
 
 function resetAll() {
+    generateCases();
     if (decayTimer) clearInterval(decayTimer);
     current = null;
     userValues = {};
@@ -333,48 +396,6 @@ function resetAll() {
 
 }
 
-/*function fillSelect(select, values) {
-    select.innerHTML = '';
-    values.forEach(v => {
-        const opt = document.createElement('option');
-        opt.value = v;
-        opt.textContent = v;
-        select.appendChild(opt);
-    });
-}
-
-function startHandover() {
-    awaitingHandover = true;
-
-    document.getElementById('handoverPanel').classList.remove('hidden');
-
-    fillSelect(
-        document.getElementById('handoverPre'),
-        ["keine", "Asthma", "Diabetes", "Epilepsie", "Herzerkrankung"]
-    );
-//arrays aus cases übernehmen
-    fillSelect(
-        document.getElementById('handoverMed'),
-        ["keine", "Insulin", "Betablocker", "Antiepileptika", "Asthmaspray"]
-    );
-
-    log('🚑 Patient stabil – Übergabe an Rettungsdienst vorbereiten');
-}
-
-function submitHandover() {
-    handoverData = {
-        puls: document.getElementById('handoverPuls').value,
-        bloodPressure: document.getElementById('handoverBP').value,
-        preExistingConditions: document.getElementById('handoverPre').value,
-        medications: document.getElementById('handoverMed').value,
-        cause: document.getElementById('handoverCause').value
-    };
-
-    document.getElementById('handoverPanel').classList.add('hidden');
-    awaitingHandover = false;
-
-    endSimulation();
-}*/
 
 // initial
 generateValueSelect(queryInput);

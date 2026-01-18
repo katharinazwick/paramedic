@@ -1,71 +1,200 @@
 import { measure } from "../enum/measure.js";
 import { causes } from "../enum/causes.js";
-
-export const basisCase = [
-    // ATEMWEGE / ATMUNG => recap
+import { shocks } from "../enum/shocks.js";
+//beruhigen
+export const basisCases = [
     {
         typ: causes.asthma,
-        initialSituation: "Kalte Umgebung, körperliche Belastung, bekannte Atemwegserkrankung",
-        symptom: "pfeifende Atmung, verlängerte Ausatmung, Angst",
+        symptoms: ["pfeifende Atmung", "verlängerte Ausatmung"],
+        skincolor: "zyanotisch",
+        vitalEffects: { puls: { add: 60 }, respiratoryRate: { add: 12 } },
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.medication],
+        contraindications: [measure.shockPosition],
+        canCombineWith: [causes.hypothermia, shocks.anaphylacticShock]
+    },
+    {
+        typ: causes.airwayObstruction,
+        symptoms: ["Atemnot", "Angst", "Husten"],
         skincolor: "blass",
-        vital: { bloodPressure: "125/80", puls: 115, temp: 36.6, respiratoryRate: 24, recap: 1 },
-        measures: [
-            measure.elevatedPosition,
-            measure.calmDown,
-            measure.moreOxygen,
-            measure.medication
-        ],
+        vitalEffects: { puls: { add: 30 }, respiratoryRate: { add: 12 } },
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.secretManeuver, measure.emergencyCall],
         contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Anaphylaxie"]
+        canCombineWith: [causes.asthma]
+    },]/*
+    {
+        typ: causes.pulmonaryEdema,
+        symptoms: ["Atemnot", "Rasselgeräusche"],
+        skincolor: "blass-blau",
+        vitalEffects: { puls: { add: 20 }, respiratoryRate: { add: 15 } },
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.medication, measure.emergencyCall],
+        contraindications: [measure.shockPosition],
+        canCombineWith: [causes.asthma, causes.internalBleeding]
     },
     {
-        typ: "Pneumothorax",
-        initialSituation: "Sturz mit Brustkorbaufprall, kalte Umgebung",
-        symptom: "plötzliche Atemnot, einseitiger Brustschmerz",
+        typ: causes.pneumothorax,
+        symptoms: ["plötzliche Atemnot", "einseitiger Brustschmerz", "Blutung am Bauch"],
         skincolor: "blass",
-        vital: { bloodPressure: "110/70", puls: 120, temp: 36.5, respiratoryRate: 26 },
-        cause: "Luft im Pleuraspalt",
-        measures: [
-            measure.elevatedPosition,
-            measure.calmDown,
-            measure.moreOxygen,
-            measure.sterileCover
-        ],
+        vitalEffects: { puls: { add: 20 }, respiratoryRate: { add: 12 }, bloodPressure: { drop: "leicht" } },
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.sterileCover, measure.stopBleeding, measure.emergencyCall],
         contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Blutung", "Schock"]
+        canCombineWith: [causes.asthma,shocks.septicShock, shocks.vasovagalShock]
     },
     {
-        typ: "Lungenödem",
-        initialSituation: "Wohnung, bekannte Herzerkrankung, nächtliche Atemnot",
-        symptom: "Rasselgeräusche, schaumiger Auswurf, starke Atemnot",
-        skincolor: "grau-zyanotisch",
-        vital: { bloodPressure: "170/100", puls: 110, temp: 37.0, respiratoryRate: 30 },
-        cause: "Linksherzinsuffizienz",
-        measures: [
-            measure.elevatedPosition,
-            measure.calmDown,
-            measure.moreOxygen,
-            measure.emergencyCall
-        ],
-        contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Kardiogener Schock", "Atemstillstand"]
-    },
-    {
-        typ: "Rauchgasinhalation",
-        initialSituation: "Wohnungsbrand, starke Rauchentwicklung",
-        symptom: "Husten, Atemnot, Ruß im Gesicht",
-        skincolor: "grau",
-        vital: { bloodPressure: "110/70", puls: 120, temp: 37.4, respiratoryRate: 28 },
-        cause: "Toxische Gase",
-        measures: [
-            measure.oxygen,
-            measure.elevatedPosition,
-            measure.emergencyCall,
-            measure.lateralPosition
-        ],
+        typ: causes.anaphylaxis,
+        symptoms: ["Atemnot", "Schwellung", "Hautausschlag", "Übelkeit"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 50 }, respiratoryRate: { add: 15 }, bloodPressure: { drop: "stark" } },
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.medication],
         contraindications: [],
-        possibleAdditionalProblems: ["Atemstillstand", "Vergiftung"]
+        canCombineWith: [causes.asthma,causes.sunStroke]
     },
+    {
+        typ: causes.decompressionSickness,
+        symptoms: ["Husten, Schwindel, Müdigkeit, Jucken, Gleichgewichtsstörung"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 30 }, respiratoryRate: { add: 8 } },
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.warmth, measure.drink],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.heartAttack,
+        symptoms: ["starke Brustschmerzen", "Schwitzen", "Angst", "Atemnot"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 20 }, bloodPressure: { drop: "leicht" } },
+        measures: [measure.calmDown, measure.moreOxygen, measure.emergencyCall, measure.AED],
+        contraindications: [],
+        canCombineWith: [causes.asthma,shocks.septicShock,causes.sunStroke]
+    },
+    {
+        typ: causes.coPoisoning,
+        symptoms: ["Atemprobleme"],
+        skincolor: "blau-rot",
+        vitalEffects: { puls: { add: 30 }, respiratoryRate: { add: 15 } },
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.leaveDangerZone],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.intoxication,
+        symptoms: ["veränderte Atmung", "Übelkeit", "Erbrechen", "Bewusstseinsstörung"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 50 }, respiratoryRate: { add: 15 } },
+        measures: [measure.oxygen, measure.emergencyCall, measure.leaveDangerZone],
+        contraindications: [],
+        canCombineWith: [causes.asthma, causes.sunStroke]
+    },
+    {
+        typ: causes.poisoning,
+        symptoms: ["Schwindel", "Pupillenstörung", "Übelkeit"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 40 }},
+        measures: [measure.elevatedPosition, measure.oxygen, measure.emergencyCall],
+        contraindications: [],
+        canCombineWith: [causes.asthma, causes.sunStroke]
+    },
+    {
+        typ: causes.stroke,
+        symptoms: ["Bewusstseinsstörung", "Pupillenstörung", "Sprachstörung", "einseitige Lähmung"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 20 }, bloodPressure: { drop: "leicht" } },
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall],
+        contraindications: [measure.drink, measure.food],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.seizure,
+        symptoms: ["Zittern", "Versteifung", "Urinabgabe"],
+        skincolor: "",
+        vitalEffects: { puls: { add: 40 }, respiratoryRate: { add: 15 }, bloodPressure: { drop: "stark" } },
+        measures: [measure.flatStorage, measure.oxygen, measure.warmth],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.internalBleeding,
+        symptoms: ["Bauchschmerzen", "Schwitzen"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 20 }, bloodPressure: { drop: "stark" }, temp: {add: 2} },
+        measures: [measure.flatStorage, measure.oxygen, measure.emergencyCall, measure.warmth],
+        contraindications: [],
+        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia]
+    },
+    {
+        typ: causes.hypoglycemia,
+        symptoms: ["Schwitzen", "Übelkeit"],
+        skincolor: "blass",
+        vitalEffects: { puls: { add: 30 } , temp: {add: 2}},
+        measures: [measure.glucose, measure.oxygen, measure.warmth],
+        contraindications: [],
+        canCombineWith: [causes.asthma, causes.hypothermia]
+    },
+    {
+        typ: causes.hyperglycemia,
+        symptoms: ["Hyperaktivität", "süßlicher Atemgeruch", "Durst"],
+        skincolor: "",
+        vitalEffects: { puls: { add: 50 }, respiratoryRate: { add: 15 }, bloodPressure: { drop: "stark" } },
+        measures: [measure.drink, measure.activity],
+        contraindications: [],
+        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia]
+    },
+    {
+        typ: causes.frostbite,
+        symptoms: ["Steifung"],
+        skincolor: "zyanotisch",
+        vitalEffects: { puls: { add: -30 }, respiratoryRate: { add: -6 } , temp: {add: 10}},
+        measures: [measure.flatStorage, measure.sterileCover, measure.emergencyCall, measure.warmth],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.hypoglycemia,
+        symptoms: ["Kälte", "Zittern"],
+        skincolor: "zyanotisch",
+        vitalEffects: { puls: { add: 40 }, respiratoryRate: { add: 15 }, temp: {add: -6} },
+        measures: [measure.flatStorage, measure.glucose, measure.drink, measure.warmth],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.heatstroke,
+        symptoms: ["Verwirrtheit", "trockene Haut"],
+        skincolor: "",
+        vitalEffects: { puls: { add: 50 }, respiratoryRate: { add: 15 }, bloodPressure: { drop: "stark" }, temp: {add: 3} },
+        measures: [measure.elevatedPosition, measure.drink, measure.emergencyCall, measure.freeze, measure.shadow],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.sunStroke,
+        symptoms: ["Kopfschmerzen", "Nackenschmerzen"],
+        skincolor: "rot",
+        vitalEffects: { },
+        measures: [measure.elevatedPosition, measure.drink, measure.freeze, measure.shadow],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.heatstroke,
+        symptoms: ["Kopfschmerzen", "Frieren"],
+        skincolor: "rot",
+        vitalEffects: { },
+        measures: [measure.elevatedPosition, measure.drink, measure.emergencyCall, measure.warmth, measure.shadow],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+    {
+        typ: causes.burn,
+        symptoms: ["Rötung", "Blasen"],
+        skincolor: "rot",
+        vitalEffects: { puls: { add: 20 }, respiratoryRate: { add: 15 },temp: {add: 2} },
+        measures: [measure.freeze, measure.emergencyCall, measure.freeze, measure.sterileCover],
+        contraindications: [],
+        canCombineWith: [causes.asthma]
+    },
+]
+    //fraktur, blutng
+   /*
     {
         typ: "Reizgasvergiftung",
         initialSituation: "Demonstration / Schwimmbad / chem. Anlage",
@@ -99,143 +228,4 @@ export const basisCase = [
         possibleAdditionalProblems: ["Trauma", "Vergiftung"]
     },
 
-    // KREISLAUF / SCHOCK
-    {
-        typ: "Hypovolämischer Schock",
-        initialSituation: "Verkehrsunfall, starke Blutung",
-        symptom: "kaltschweißig, Unruhe",
-        skincolor: "blass-grau",
-        vital: { bloodPressure: "85/60", puls: 135, temp: 35.9, respiratoryRate: 30 },
-        cause: "Blutverlust",
-        measures: [
-            measure.stopBleeding,
-            measure.shockPosition,
-            measure.warmth,
-            measure.emergencyCall
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Innere Blutung"]
-    },
-    {
-        typ: "Anaphylaktischer Schock",
-        initialSituation: "Insektenstich",
-        symptom: "Atemnot, Quaddeln, Schwellung",
-        skincolor: "gerötet",
-        vital: { bloodPressure: "80/50", puls: 140, temp: 37.2, respiratoryRate: 32 },
-        cause: "Allergische Reaktion",
-        measures: [
-            measure.emergencyCall,
-            measure.oxygen,
-            measure.elevatedPosition,
-        ],
-        contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Atemstillstand"]
-    },
-    {
-        typ: "Kardiogener Schock",
-        initialSituation: "Brustschmerz, Herzpatient",
-        symptom: "kalte Haut, Atemnot",
-        skincolor: "aschfahl",
-        vital: { bloodPressure: "70/45", puls: 120, temp: 36.7, respiratoryRate: 28 },
-        cause: "Herzversagen",
-        measures: [
-            measure.elevatedPosition,
-            measure.oxygen,
-            measure.calmDown,
-            measure.emergencyCall,
-            measure.AED
-        ],
-        contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Lungenödem"]
-    },
-
-    // NEUROLOGIE
-    {
-        typ: "Schlaganfall",
-        initialSituation: "plötzliche Sprachstörung",
-        symptom: "Lähmung, Sprachstörung",
-        skincolor: "normal",
-        vital: { bloodPressure: "190/105", puls: 90, temp: 36.8, respiratoryRate: 16 },
-        cause: "Zerebrale Durchblutungsstörung",
-        measures: [
-            measure.elevatedPosition,
-            measure.emergencyCall,
-        ],
-        contraindications: [measure.shockPosition],
-        possibleAdditionalProblems: ["Bewusstseinsverlust"]
-    },
-    {
-        typ: "Epileptischer Anfall",
-        initialSituation: "plötzlicher Krampfanfall",
-        symptom: "Krampfanfälle",
-        skincolor: "zyanotisch",
-        vital: { bloodPressure: "140/90", puls: 130, temp: 37.8, respiratoryRate: 0 },
-        cause: "Epilepsie",
-        measures: [
-            measure.measureTime,
-            measure.emergencyCall
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Atemstillstand"]
-    },
-
-    // STOFFWECHSEL
-    {
-        typ: "Hypoglykämie",
-        initialSituation: "Diabetiker",
-        symptom: "Zittern, Schwitzen",
-        skincolor: "blass",
-        vital: { bloodPressure: "120/75", puls: 115, temp: 36.5, respiratoryRate: 18 },
-        cause: "Unterzuckerung",
-        measures: [
-            measure.glucose,
-            measure.emergencyCall
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Krampfanfall"]
-    },
-    {
-        typ: "Hyperglykämie",
-        initialSituation: "starker Durst",
-        symptom: "tiefe Atmung",
-        skincolor: "trocken",
-        vital: { bloodPressure: "100/65", puls: 110, temp: 38.2, respiratoryRate: 28 },
-        cause: "Insulinmangel",
-        measures: [
-            measure.emergencyCall,
-            measure.oxygen,
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Bewusstseinsstörung"]
-    },
-
-    // TRAUMA / UMWELT
-    {
-        typ: "Unterkühlung",
-        initialSituation: "Winter",
-        symptom: "Zittern",
-        skincolor: "blass",
-        vital: { bloodPressure: "100/65", puls: 55, temp: 34.0, respiratoryRate: 10 },
-        cause: "Kälteeinwirkung",
-        measures: [
-            measure.warmth,
-            measure.emergencyCall
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Herzrhythmusstörungen"]
-    },
-    {
-        typ: "Ertrinkungsunfall",
-        initialSituation: "bewusstlos geborgen",
-        symptom: "keine Atmung",
-        skincolor: "zyanotisch",
-        vital: { bloodPressure: "nicht messbar", puls: 0, temp: 32.0, respiratoryRate: 0 },
-        cause: "Hypoxie",
-        measures: [
-            measure.HLW,
-            measure.warmth,
-            measure.emergencyCall
-        ],
-        contraindications: [],
-        possibleAdditionalProblems: ["Lungenödem"]}
-];
+*/

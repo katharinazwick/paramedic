@@ -1,0 +1,32 @@
+import {causes} from "./causes.js";
+
+export const initialSituation = {
+    [causes.asthma]: ["Ich hab sie so gefunden. Was macht macht man da?", "Hab gerade Schluss gemacht mit ihr und auf einmal schiebt sie so Panik..."],
+    [causes.airwayObstruction]: ["Kommen sie schnell hier rüber zur Imbissbude","Aufpasen, dass sie nicht auf die Legosteine treten!"],
+    [causes.pulmonaryEdema]: ["Halloooo, kann hier mal wer helfen!!!", "Auf einmal hat sie ganz komisch geatmet. Wir brauchen hier Hilfe!"],
+    [causes.pneumothorax]: ["Sie ist mit dem Fahrrad gestürzt. Oje ):", "Ja mein Got, wir hatten nen bischen Streit. Dann hab ich zum Messer gegriffen. Aber der Stich ist echt nicht tief."],
+    [causes.anaphylaxis]: ["Ich glaube sie wurde von einer Biene oder so gestochen. Vielleicht war´s auch ne Wespe. Woher soll ich das denn wissen...", "Wir waren im Kino. Gab nen paar Snacks und jetzt schaut der so crazy aus."],
+    //[causes.drowning]: ["Ertrinken im Freibad", "Patient aus Pool geborgen, bewusstlos"],
+    [causes.decompressionSickness]: ["Er kam vom Tauchen wieder und dann gings ihm ganz schlecht.", "Als er auftauchen wollte ist er bewusstlos geworden. Jetzt ist er wieder bei uns, aber da stimmt doch was nicht."],
+    [causes.coPoisoning]: ["In der Küche hat es gebrannt. Er hat noch unseren Sohn gerettet.", "Wir haben doch nur nen bischen im Wohnzimmer geraucht. Wieso schaut der jetzt so komisch aus?"],
+    [causes.heartAttack]: ["Brustschmerzen, Ausstrahlung in Arm", "Patient kollabiert mit Thoraxschmerzen"],
+    [causes.intoxication]: ["Vergiftung durch Medikamentenüberdosis", "Alkoholintoxikation mit Erbrechen"],
+    [causes.poisoning]: ["Mir geht´s irgendwie nicht so gut. Dabei hab ich den ganzen Tag nicht´s gegessen außer die paar Pilze", "Ich arbeite im Labor. Glaube hab da irgendwas in den Mund bekommen."],
+    [causes.stroke]: ["Ich ich ich, braache. Ehhh ne gut", "Ahh ehh mhhh...."],
+    [causes.seizure]: ["Der hat doch nur Epilepsie, das kennt man doch.", "Der hatte nen bisschen Fieber gestern, jetzt wackelt der da so rum."],
+    [causes.internalBleeding]: ["Abdominelle Schmerzen nach Trauma", "Blutdruckabfall bei Bauchverletzung"],
+    [causes.hypoglycemia]: ["Ich hab so Hunger!", ""],
+    [causes.hyperglycemia]: ["Durst, Polyurie, Müdigkeit", "Diabetischer Patient mit hohem Blutzucker"],
+    [causes.frostbite]: ["Erfrierung an Fingern bei -10°C", "Kälteexposition im Gebirge"],
+    [causes.hypothermia]: ["Unterkühlung nach Unfall im Wasser", "Patient bewusstlos in kaltem Wetter"],
+    [causes.heatstroke]: ["Hitzschlag nach Marathonlauf", "Bewusstlos nach Sonnenexposition"],
+    [causes.sunStroke]: ["Sonnenstich durch fehlende Kopfbedeckung", "Schwindel nach Aufenthalt in Sonne"],
+    [causes.burn]: ["Verbrennung durch Heißwasser", "Brandverletzung am Arm"],
+    [causes.fracture]: ["Sturz vom Fahrrad", "Offene Fraktur am Bein nach Unfall"],
+    [causes.wounds]: ["Tiefe Schnittverletzung am Unterarm", "Stichverletzung"],
+    [causes.headInjury]: ["Sturz mit Kopfanprall", "Schädel-Hirn-Trauma nach Verkehrsunfall"],
+    [causes.skullFracture]: ["Sturz vom Gerüst", "Schädelbruch nach Verkehrsunfall"],
+    [causes.facialInjury]: ["Gesichtsverletzung durch Schlag", "Nasenbeinbruch nach Unfall"],
+    [causes.barotrauma]: ["Taucher mit Druckverletzung im Ohr", "Lungenbarotrauma nach Tauchunfall"],
+    [causes.hyperventilation]: ["Panikanfall mit schneller Atmung", "Stressbedingte Hyperventilation"]
+};
