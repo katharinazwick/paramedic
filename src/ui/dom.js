@@ -1,0 +1,16 @@
+export const dom = {
+    startBtn: document.getElementById('startBtn'),
+    endBtn: document.getElementById('endBtn'),
+    resetBtn: document.getElementById('resetBtn'),
+    expansionBtn: document.getElementById('expansionBtn'),
+    scenarioText: document.getElementById('scenarioText'),
+    scenarioMeta: document.getElementById('scenarioMeta'),
+    queryInput: document.getElementById('queryInput'),
+    askResult: document.getElementById('askResult'),
+    measureInput: document.getElementById('measureInput'),
+    measureList: document.getElementById('measureList'),
+    logArea: document.getElementById('logArea'),
+    summaryModal: document.getElementById('summary'),
+    summaryContent: document.getElementById('summaryContent'),
+    closeSummary: document.getElementById('closeSummary'),
+};

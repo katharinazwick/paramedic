@@ -4,7 +4,6 @@ export const causes = {
     pulmonaryEdema: "Lungenödem",
     pneumothorax: "Pneumothorax",
     anaphylaxis: "Anaphylaxie",
-    //drowning: "Ertrinken",
     decompressionSickness: "Dekompression",
     coPoisoning: "CO-Vergiftung",
     heartAttack: "Herzinfarkt",
@@ -27,6 +26,7 @@ export const causes = {
     skullFracture: "Schädelbruch",
     barotrauma: "Barotrauma",
     hyperventilation: "Hyperventilation",
+    bleeding: "starke Blutung"
 };
 
 export const causesArray = Object.values(causes)

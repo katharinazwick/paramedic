@@ -1,7 +1,8 @@
 export const shocks = {
-    carcinogenicShock: "Karzinogener Schock",
+    carcinogenicShock: "Kardiogener Schock",
     neurologicalShock: "Neurologischer Schock",
     septicShock: "Septischer Schock",
     vasovagalShock: "Vasovagaler Schock",
-    anaphylacticShock: "Anaphylaktischer Schock"
+    anaphylacticShock: "Anaphylaktischer Schock",
+    otwoShcok: "Volumenmangelschock"
 };
