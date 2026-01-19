@@ -3,6 +3,7 @@ import {generateValueSelect} from "./selects/valueOptions.js";
 import {generateMeasureSelect} from "./selects/measureOption.js";
 import {allergy, preExistingConditions, medications} from "./enum/sampler.js";
 import {causesArray} from "./enum/causes.js";
+import {measure} from "./enum/measure.js";
 
 
 // DOM
@@ -75,6 +76,8 @@ function enableGame(b) {
     endBtn.disabled = !b;
     resetBtn.disabled = !b;
     expansionBtn.disabled = !b;
+    queryInput.disabled = !b;
+    measureInput.disabled = !b;
 }
 
 function startSimulation() {
@@ -85,7 +88,6 @@ function startSimulation() {
     current.progress = 0.5; // 50 %
     current.step = 0.5 / current.measures.length; // z. B. 0.25 bei 4 Maßnahmen
     updateStateUI();
-    lastActionTime = Date.now();
     startDecayTimer();
     userValues = {};
     userMeasures = [];
@@ -134,6 +136,16 @@ function saveMeasure() {
     const text = measureInput.value;
     if (!text) return;
 
+    if (userMeasures.length === 0) {
+        const isSelfProtection = measure.selfProtection.includes(text);
+
+        if (!isSelfProtection) {
+            log(`❌ Eigensicherung vergessen!`);
+            log(`💥 Du bist selbst verunglückt`);
+            disable()
+            return;
+        }
+    }
     // doppelte Maßnahmen verhindern
     if (userMeasures.includes(text)) {
         log(`ℹ Maßnahme bereits durchgeführt: ${text}`);
@@ -354,11 +366,6 @@ document.addEventListener("click", (e) => {
         validateHandoverFields(current);
     }
 });
-document.addEventListener("click", (e) => {
-    if (e.target.id === "endBtn") {
-        endSimulation();
-    }
-});
 
 
 function resetAll() {
@@ -391,9 +398,12 @@ function resetAll() {
     resetBtn.addEventListener('click', resetAll);
     expansionBtn.addEventListener('click', expansionSimulation);
     closeSummary.addEventListener('click', () => summaryModal.classList.add('hidden'));
-    closeSummary.addEventListener('click', () => resetAll());
-    //handoverSubmit.addEventListener('click', submitHandover);
+    closeSummary.addEventListener('click', disable);
+}
 
+function disable() {
+    queryInput.disabled = true;
+    measureInput.disabled = true;
 }
 
 
