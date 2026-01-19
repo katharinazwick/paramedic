@@ -1,7 +1,7 @@
 import { basisCases } from "./basisCase.js";
-import { initialSituation } from "../enum/initialSituation.js";
 import { healthStatuts, allergy, preExistingConditions, medications } from "../enum/sampler.js"; // falls vorhanden
 import { applyVitalEffects, combineCases, pickRandom } from "./utils.js";
+import {generateInitialSituationNeutral} from "../enum/initialSituation/initialSituation.js";
 
 export const cases = [];
 
@@ -37,9 +37,6 @@ export function generateCases(numCases = 200) {
         const bp = vitals.bloodPressure || "nicht messbar";
         const temp = vitals.temp ? `${vitals.temp} °C` : "unbekannt";
 
-        // InitialSituation aus allen gewählten Basisfällen zufällig
-        const initSituationStr = picked.map(c => pickRandom(initialSituation[c.typ])).join(" + ");
-
         // Push in das globale Array
         cases.push({
             id: i,
@@ -47,7 +44,7 @@ export function generateCases(numCases = 200) {
             maxState: 10,
             minState: 0,
             typ: combined.typ,
-            initialSituation: initSituationStr,
+            initialSituation: generateInitialSituationNeutral(),
             symptom: combined.symptoms.join(", "),
             age: age,
             health: health,

@@ -25,7 +25,6 @@ export const causes = {
     wounds: "Wunden",
     headInjury: "Schädelhirntrauma",
     skullFracture: "Schädelbruch",
-    facialInjury: "Gesichtsverletzung",
     barotrauma: "Barotrauma",
     hyperventilation: "Hyperventilation",
 };
