@@ -1,7 +1,8 @@
 import { basisCases } from "./basisCase.js";
 import { healthStatuts, allergy, preExistingConditions, medications } from "../enum/sampler.js"; // falls vorhanden
-import { applyVitalEffects, combineCases, pickRandom } from "./utils.js";
+import {combineCases, pickRandom } from "./combineCases.js";
 import {generateInitialSituationNeutral} from "../enum/initialSituation/initialSituation.js";
+import {applyVitalEffects} from "./applyVitalEffects.js";
 
 export const cases = [];
 

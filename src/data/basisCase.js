@@ -1,9 +1,7 @@
 import {measure} from "../enum/measure.js";
 import {causes} from "../enum/causes.js";
-import {shocks} from "../enum/shocks.js";
-import {bloodPressure} from "../enum/bloodPressure";
+import {bloodPressure} from "../enum/bloodPressure.js";
 //beruhigen
-//eigenschutz überall
 export const basisCases = [
     {
         typ: causes.asthma,
@@ -19,11 +17,11 @@ export const basisCases = [
         symptoms: ["Atemnot", "Angst", "Husten"],
         skincolor: "blass",
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 12}},
-        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.secretManeuver, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition],
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.secretManeuver, measure.emergencyCall, measure.selfProtection,measure.shockPosition],
+        contraindications: [], //measure.shockPosition
         canCombineWith: [causes.asthma, causes.hypothermia, causes.sunStroke, causes.hypoglycemia, causes.hyperglycemia]
     },
-    {
+    /*{
         typ: causes.pulmonaryEdema,
         symptoms: ["Atemnot", "Rasselgeräusche"],
         skincolor: "blass-blau",
@@ -257,4 +255,13 @@ export const basisCases = [
         contraindications: [],
         canCombineWith: [causes.sunStroke, causes.wounds, causes.hyperventilation,causes.hypothermia]
     },
+    {
+        typ: causes.Rückenverletzung,
+        symptoms: ["bewegungslose Lage", "starke Schmerzen"],
+        skincolor: "",
+        vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 10}},
+        measures: [measure.flatStorage, measure.oxygen, measure.warmth, measure.emergencyCall, measure.spineboard, measure.HWS, measure.selfProtection],
+        contraindications: [measure.shockPosition],
+        canCombineWith: [causes.wounds, causes.bleeding]
+    },*/
 ]

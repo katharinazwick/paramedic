@@ -1,4 +1,4 @@
-export const healthStatuts = ["gut", "schlecht", "psychisch belastet"];
-export const allergy = ["keine", "Pollen", "Hausstaub", "Penicillin", "Nüsse"];
-export const preExistingConditions = ["keine", "Asthma", "Diabetes", "Epilepsie"];
-export const medications = ["keine", "Insulin", "Betablocker", "Antiepileptika"];
+export const healthStatuts = ["gut", "schlecht"];
+export const allergy = ["keine", "Hausstaub", "Ibuprofen", "Nüsse", "Penicillin", "Pollen"];
+export const preExistingConditions = ["keine", "Depressionen", "Diabetes", "Epilepsie", "Gehörlos"];
+export const medications = ["keine", "Antiepileptika", "Betablocker", "Insulin"]
