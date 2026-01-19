@@ -278,7 +278,7 @@ function expansionSimulation() {
             <h3>Übergabedaten</h3>
 
             <div class="handover-form">
-                ${renderSelect("Ursache", "cause", causesArray)}
+                ${renderSelect("Ursache (bug!)", "cause", causesArray)}
                 ${renderSelect("Vorerkrankungen", "preExistingConditions", preExistingConditions)}
                 ${renderSelect("Allergien", "allergies", allergy)}
                 ${renderSelect("Medikamente", "medications", medications)}
