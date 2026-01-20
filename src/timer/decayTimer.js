@@ -2,10 +2,11 @@ import {gameState} from "../state/gameState.js";
 import {expansionSimulation} from "../simulation/expansionSimulation.js";
 import {updateTimerUI} from "./updateTimer.js";
 import {unconscious} from "./unconscious.js";
+import {disable} from "../ui/enableDisable.js";
 
 export function startDecayTimer() {
-    const TOTAL_TIME = 5 * 60 * 10000; // 5 Minuten
-    const UNCONSCIOUS_TIME = 3 * 60 * 10000; // 3 Minuten
+    const TOTAL_TIME = 5 * 60 * 1000; // 5 Minuten
+    const UNCONSCIOUS_TIME = 2 * 60 * 1000; // 2 Minuten
 
     if (gameState.decayTimer) {
         clearInterval(gameState.decayTimer);
@@ -31,7 +32,7 @@ export function startDecayTimer() {
         if (elapsed >= TOTAL_TIME) {
             clearInterval(gameState.decayTimer);
             gameState.decayTimer = null;
-            expansionSimulation()
+            disable()
         }
     }, 200);
 }
