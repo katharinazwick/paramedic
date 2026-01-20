@@ -12,3 +12,10 @@ export function disable() {
     dom.queryInput.disabled = true;
     dom.measureInput.disabled = true;
 }
+
+export function disableExpansion() {
+    const inputs = document.querySelectorAll(".handover-form input, .handover-form select");
+    inputs.forEach((input) => {
+        input.disabled = true;
+    })
+}
