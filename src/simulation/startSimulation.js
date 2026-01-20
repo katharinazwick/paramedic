@@ -1,6 +1,6 @@
 import {gameState} from "../state/gameState.js";
 import {cases} from "../data/cases.js";
-import {startDecayTimer} from "./decayTimer.js";
+import {startDecayTimer} from "../timer/decayTimer.js";
 import {dom} from "../ui/dom.js";
 import {enableGame} from "../ui/enableDisable.js";
 import {log} from "../ui/log.js";
@@ -10,8 +10,10 @@ export function startSimulation() {
 // zufällig eines der Szenarien wählen
     gameState.current = cases[Math.floor(Math.random() * cases.length)];
     //current = generateCases();
-    gameState.current.progress = 0.5; // 50 %
-    gameState.current.step = 0.5 / gameState.current.measures.length; // z. B. 0.25 bei 4 Maßnahmen
+    gameState.current.stateProgress = 0.5; // 50 %
+    gameState.current.fullProgress = 0; // 50 %
+    gameState.current.stateSteps = 0.5 / gameState.current.measures.length;
+    gameState.current.fullStep = 1 / gameState.current.measures.length;
     updateStateUI();
     startDecayTimer();
     gameState.userValues = {};

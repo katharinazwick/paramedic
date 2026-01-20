@@ -15,9 +15,14 @@ export function saveMeasure() {
         const isSelfProtection = measure.selfProtection.includes(text);
 
         if (!isSelfProtection) {
-            log(`❌ Eigensicherung vergessen!`);
-            log(`💥 Du bist selbst verunglückt`);
-            disable()
+            log(`❌ Eigensicherung vergessen! Deine Maßnahme wird nicht gespeichert!`);
+            log(`💥 Du bist verunglückt. Kannst du deinen Patienten noch stabilisieren?`);
+            gameState.current.stateProgress -= 0.3;
+            updateStateUI();
+            if (gameState.current.stateProgress <= 0) {
+                gameState.endReason = "ownDeath";
+                endSimulation();
+            }
             return;
         }
     }
@@ -31,7 +36,7 @@ export function saveMeasure() {
     dom.measureInput.value = '';
     renderMeasures();
 
-    gameState.lastActionTime = Date.now();
+    //gameState.lastActionTime = Date.now();
 
     // ✔ richtige Maßnahme (exakte Übereinstimmung)
     const isCorrect = gameState.current.measures.includes(text);
@@ -40,24 +45,29 @@ export function saveMeasure() {
     const isContra = gameState.current.contraindications.includes(text);
 
     if (isContra) {
-        gameState.current.progress = 0;
+        gameState.current.stateProgress -= 0.5;
         updateStateUI();
-        gameState.endReason = "contra";
-        endSimulation();
-        return;
-    }
-
-    if (isCorrect) {
-        gameState.current.progress += gameState.current.step;
+        log(`⚠️ Kontraindikation: ${text}`);
+        log(`🛟 Sieh zu dass du deinen Patienten noch rettest!`);
+    } else if (isCorrect) {
+        gameState.current.stateProgress += gameState.current.stateSteps;
         updateStateUI();
-        log(`✔ richtige Maßnahme (${text}) → +${gameState.current.step.toFixed(2)}`);
+        log(`✔ richtige Maßnahme (${text}) → +${gameState.current.stateSteps.toFixed(2)}`);
+        gameState.current.fullProgress += gameState.current.fullStep;
     } else {
         log(`⚠ neutrale Maßnahme: ${text}`);
     }
-    if (gameState.current.progress >= 1) { //beendet sofort kein platz für sampler
-        gameState.endReason = "success"
+    if (gameState.current.fullProgress >= 1) {
+        gameState.endReason = "justBarely"
         log('✅ Patient stabilisiert – Zeit für Betreuung');
     }
+    if (gameState.current.stateProgress <= 0) {
+        gameState.endReason = "contra";
+        endSimulation();
+    } else if (gameState.current.stateProgress >= 1) {
+        gameState.endReason = "success"
+    }
+
     /*if (current.progress <= 0) {
         endReason = "timeout";
         endSimulation();
