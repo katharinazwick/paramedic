@@ -20,9 +20,9 @@ export function endSimulation() {
         case "ownDeath":
             resultText = '☠️ <strong>Du & der Patient seid verstorben</strong> – mehrfaches vergessen der Eigensicherung';
             break;
-        /*case "timeout":
-            resultText = '⚠ <strong>Patient verstorben</strong> – zu lange keine wirksamen Maßnahmen.';
-            break;*/
+            case "unconscious":
+            resultText = '🔋️ <strong>Patient stabilisiert</strong> – Notsituation erfolgreich bewältigt';
+            break;
         default:
             resultText = 'Simulation beendet.';
     }

@@ -57,6 +57,15 @@ export function saveMeasure() {
     } else {
         log(`⚠ neutrale Maßnahme: ${text}`);
     }
+    const allAllowed = gameState.current.measures.every(m =>
+        gameState.userMeasures.includes(m)
+    );
+
+    if (allAllowed && (gameState.current.unconscious || gameState.current.cardiacArrest)) {
+        log(`✅ Patient stabilisiert – übergebe ihn an den Rettungsdienst`);
+        gameState.endReason = "unconscious";
+        return;
+    }
     if (gameState.current.fullProgress >= 1) {
         gameState.endReason = "justBarely"
         log('✅ Patient stabilisiert – Zeit für Betreuung');
@@ -67,7 +76,6 @@ export function saveMeasure() {
     } else if (gameState.current.stateProgress >= 1) {
         gameState.endReason = "success"
     }
-
     /*if (current.progress <= 0) {
         endReason = "timeout";
         endSimulation();

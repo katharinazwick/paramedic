@@ -1,6 +1,6 @@
 import {gameState} from "../state/gameState.js";
 import {causesArray} from "../enum/causes.js";
-import {allergy, medications, preExistingConditions} from "../enum/sampler.js";
+import {allergy, condition, medications, preExistingConditions} from "../enum/sampler.js";
 import {dom} from "../ui/dom.js";
 import {enableGame} from "../ui/enableDisable.js";
 import {renderSelect} from "../selects/renderSelects.js";
@@ -11,7 +11,7 @@ import {endSimulation} from "./endSimulation.js";
 export function expansionSimulation() {
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     let html = `
-        <h2>🚑 Übergabe an den Rettungsdienst</h2>
+        <h2>🚑 Übergabe an den Rettungsdienst (bei 2 Ursachen gleichzeitg ist ein Bug</h2>
 
         <div class="summary-section">
             <h3>Ursprungssituation</h3>
@@ -22,10 +22,12 @@ export function expansionSimulation() {
             <h3>Übergabedaten</h3>
 
             <div class="handover-form">
-                ${renderSelect("Ursache (bug!)", "cause", causesArray)}
+                ${renderSelect("Ursache 1", "cause1", causesArray)}
+                ${renderSelect("Ursache 2 (nur wenn vorhanden)", "cause2", causesArray)}
                 ${renderSelect("Vorerkrankungen", "preExistingConditions", preExistingConditions)}
                 ${renderSelect("Allergien", "allergies", allergy)}
                 ${renderSelect("Medikamente", "medications", medications)}
+                ${renderSelect("Zustand", "condition", condition)}
 
                 <label>
                     Puls
