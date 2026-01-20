@@ -1,36 +1,49 @@
 import {measure} from "../enum/measure.js";
 import {causes} from "../enum/causes.js";
 import {bloodPressure} from "../enum/bloodPressure.js";
-//beruhigen & contras, recap erfrierung
+// & contras
 export const basisCases = [
     {
         typ: causes.asthma,
         symptoms: ["TEST"],
         skincolor: "zyanotisch",
         vitalEffects: {puls: {add: 60}, respiratoryRate: {add: 12}},
-        measures: [measure.elevatedPosition, measure.selfProtection],
-        contraindications: [measure.shockPosition, measure.AED],
+        measures: [measure.AED,measure.shockPosition],
+        contraindications: [],
         canCombineWith: [causes.hypothermia, causes.sunStroke, causes.bleeding, causes.heatstroke, causes.heatExhaustion, causes.fracture, causes.poisoning],
         unconscious : true,
-        cardiacArrest :false,
-    },{
+        cardiacArrest :true,
+        condition: "",
+    }, {
+        typ: causes.fracture    ,
+        symptoms: ["TEST2"],
+        skincolor: "zyanotisch",
+        vitalEffects: {puls: {add: 60}, respiratoryRate: {add: 12}},
+        measures: [measure.calmDown, measure.selfProtection],
+        contraindications: [measure.shockPosition, measure.flatStorage],
+        canCombineWith: [causes.hypothermia, causes.sunStroke, causes.bleeding, causes.heatstroke, causes.heatExhaustion, causes.fracture, causes.poisoning],
+        unconscious : true,
+        cardiacArrest :true,
+        condition: "",
+    },
+    /*{
         typ: causes.asthma,
         symptoms: ["pfeifende Atmung", "verlängerte Ausatmung"],
         skincolor: "zyanotisch",
         vitalEffects: {puls: {add: 60}, respiratoryRate: {add: 12}},
         measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.medication, measure.selfProtection],
-        contraindications: [measure.shockPosition],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED,measure.stopBleeding, measure.pressureBandage],
         canCombineWith: [causes.hypothermia, causes.sunStroke, causes.bleeding, causes.heatstroke, causes.heatExhaustion, causes.fracture, causes.poisoning],
         unconscious : true,
         cardiacArrest :false,
-    },/*
+    },
     {
         typ: causes.airwayObstruction,
         symptoms: ["Atemnot", "Angst 😨", "Husten 🤧"],
         skincolor: "blass",
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 12}},
         measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.secretManeuver, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition], //
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED], //
         canCombineWith: [causes.hypothermia, causes.sunStroke, causes.hypoglycemia, causes.hyperglycemia],
         unconscious : true,
         cardiacArrest :false,
@@ -40,27 +53,33 @@ export const basisCases = [
         symptoms: ["Atemnot", "Rasselgeräusche 🪇"],
         skincolor: "blass-blau",
         vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 15}},
-        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.medication, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, causes.hypothermia, causes.sunStroke]
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.medication, measure.emergencyCall, measure.selfProtection],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.hypothermia, causes.sunStroke],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.pneumothorax,
         symptoms: ["plötzliche Atemnot", "einseitiger Brustschmerz", "Blutung am Bauch 🩸"],
         skincolor: "blass",
         vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 12}, bloodPressure: {drop: bloodPressure.medium}},
-        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.sterileCover, measure.stopBleeding, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, shocks.otwoShcok, shocks.vasovagalShock, causes.internalBleeding, causes.bleeding, causes.headInjury,causes.wounds]
+        measures: [measure.elevatedPosition, measure.calmDown, measure.moreOxygen, measure.sterileCover, measure.stopBleeding, measure.emergencyCall, measure.selfProtection, measure.calmDown],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.internalBleeding, causes.bleeding, causes.headInjury,causes.wounds],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.anaphylaxis,
         symptoms: ["Atemnot", "Schwellung ", "Hautausschlag", "Übelkeit 🤢"],
         skincolor: "blass",
         vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.low}},
-        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.medication, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia, causes.hyperglycemia,shocks.anaphylacticShock]
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.medication, measure.selfProtection, measure.calmDown],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia, causes.hyperglycemia],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.decompressionSickness,
@@ -68,26 +87,32 @@ export const basisCases = [
         skincolor: "blass",
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 8}},
         measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.warmth, measure.drink, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: []
+        contraindications: [measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.heartAttack,
         symptoms: ["starke Brustschmerzen", "Schwitzen 🥵", "Angst 😨", "Atemnot"],
         skincolor: "blass",
         vitalEffects: {puls: {add: 20}, bloodPressure: {drop: bloodPressure.high}},
-        measures: [measure.calmDown, measure.moreOxygen, measure.emergencyCall, measure.AED, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, shocks.septicShock, causes.sunStroke, shocks.carcinogenicShock]
+        measures: [measure.calmDown, measure.moreOxygen, measure.emergencyCall, measure.selfProtection, measure.calmDown],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.sunStroke],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.coPoisoning,
         symptoms: ["Atemprobleme"],
         skincolor: "blau-rot 🔷🔴",
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 15}},
-        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, shocks.vasovagalShock]
+        measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.selfProtection, measure.calmDown],
+        contraindications: [measure.shockPosition, measure.flatStorage, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.intoxication,
@@ -95,8 +120,10 @@ export const basisCases = [
         skincolor: "blass ",
         vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}},
         measures: [measure.oxygen, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.shockPosition],
-        canCombineWith: [causes.asthma, causes.sunStroke, causes.hyperglycemia]
+        contraindications: [measure.shockPosition, measure.bag, measure.lateralPosition, measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.sunStroke, causes.hyperglycemia],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.poisoning,
@@ -104,8 +131,10 @@ export const basisCases = [
         skincolor: "blass",
         vitalEffects: {puls: {add: 40}},
         measures: [measure.elevatedPosition, measure.oxygen, measure.emergencyCall, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.sunStroke,causes.hyperglycemia]
+        contraindications: [ measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.sunStroke,causes.hyperglycemia],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.stroke,
@@ -113,8 +142,10 @@ export const basisCases = [
         skincolor: "blass",
         vitalEffects: {puls: {add: 20}, bloodPressure: {drop: bloodPressure.medium}},
         measures: [measure.elevatedPosition, measure.moreOxygen, measure.emergencyCall, measure.selfProtection],
-        contraindications: [measure.drink, measure.food],
-        canCombineWith: [causes.asthma]
+        contraindications: [measure.drink, measure.food,measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.seizure,
@@ -122,62 +153,77 @@ export const basisCases = [
         skincolor: "",
         vitalEffects: {puls: {add: 40}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.low}},
         measures: [measure.flatStorage, measure.oxygen, measure.warmth,measure.measureTime, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma]
+        contraindications: [ measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.internalBleeding,
         symptoms: ["Bauchschmerzen", "Schwitzen 🥵"],
         skincolor: "blass",
-        vitalEffects: {puls: {add: 20}, bloodPressure: {drop: bloodPressure.low}, temp: {add: 2}},
+        vitalEffects: {puls: {add: 20}, bloodPressure: {drop: bloodPressure.low}, temp: {set: 38.4}},
         measures: [measure.flatStorage, measure.oxygen, measure.emergencyCall, measure.warmth, measure.selfProtection],
-        contraindications: [measure.shockPosition],
+        contraindications: [measure.shockPosition, measure.lateralPosition, measure.HLW, measure.AED],
         canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia,causes.bleeding, causes.heartAttack, causes.skullFracture, causes.hyperventilation,causes.wounds],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.hypoglycemia,
         symptoms: ["Schwitzen 🥵", "Übelkeit 🤢"],
         skincolor: "blass",
-        vitalEffects: {puls: {add: 30}, temp: {add: 2}},
+        vitalEffects: {puls: {add: 30}, temp: {set: 38.4}},
         measures: [measure.glucose, measure.oxygen, measure.warmth, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.hypothermia, causes.bleeding, causes.hyperventilation,causes.wounds]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.hypothermia, causes.bleeding, causes.hyperventilation,causes.wounds],
+        unconscious : true,
+        cardiacArrest :false,
     },
+    ///////
     {
         typ: causes.hyperglycemia,
         symptoms: ["Hyperaktivität", "süßlicher Atemgeruch", "Durst "],
         skincolor: "",
         vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.low}},
         measures: [measure.drink, measure.activity, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia]
+        contraindications: [measure.food,measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.sunStroke, causes.hypothermia],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.frostbite,
         symptoms: ["Steifung"],
         skincolor: "zyanotisch",
-        vitalEffects: {puls: {add: -30}, respiratoryRate: {add: -6}, temp: {add: 10}},
+        vitalEffects: {puls: {add: -30}, respiratoryRate: {add: -6}, temp: {set: 28.2}, recap: {set: 2}},
         measures: [measure.flatStorage, measure.sterileCover, measure.emergencyCall, measure.warmth, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.hypothermia]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.hypothermia],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.hypoglycemia,
         symptoms: ["Kälte 🥶", "Zittern "],
         skincolor: "zyanotisch",
-        vitalEffects: {puls: {add: 40}, respiratoryRate: {add: 15}, temp: {add: -6}},
+        vitalEffects: {puls: {add: 40}, respiratoryRate: {add: 15}, temp: {set: 32.4}, recap: {set: 2}},
         measures: [measure.flatStorage, measure.glucose, measure.drink, measure.warmth, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.frostbite]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.frostbite],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.heatstroke,
         symptoms: ["Verwirrtheit", "trockene Haut"],
         skincolor: "",
-        vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.low}, temp: {add: 3}},
+        vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.low}, temp: {set: 39.5}},
         measures: [measure.elevatedPosition, measure.drink, measure.emergencyCall, measure.freeze, measure.frozenPlace, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.bleeding, causes.wounds]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.bleeding, causes.wounds],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.sunStroke,
@@ -185,35 +231,43 @@ export const basisCases = [
         skincolor: "rot",
         vitalEffects: {},
         measures: [measure.elevatedPosition, measure.drink, measure.freeze, measure.frozenPlace, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.bleeding,  causes.hyperventilation, causes.burn, causes.wounds]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.bleeding,  causes.hyperventilation, causes.burn, causes.wounds],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.heatstroke,
         symptoms: ["Kopfschmerzen", "Frieren 🥶"],
         skincolor: "rot",
-        vitalEffects: {},
+        vitalEffects: {puls: {add: 30}},
         measures: [measure.elevatedPosition, measure.drink, measure.emergencyCall, measure.warmth, measure.frozenPlace, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.fracture]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.fracture],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.burn,
         symptoms: ["Rötung", "Blasen"],
         skincolor: "rot",
-        vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 15}, temp: {add: 2}},
+        vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 15}, temp: {set: 37.6}},
         measures: [measure.freeze, measure.emergencyCall, measure.freeze, measure.sterileCover, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.heatstroke, causes.sunStroke,  causes.hyperventilation]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.heatstroke, causes.sunStroke,  causes.hyperventilation],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.fracture,
         symptoms: ["abnormale Lage", "abnormale Beweglichkeit", "zusehende Knochenenden 🦴"],
         skincolor: "",
-        vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 15}, temp: {add: 2}},
+        vitalEffects: {puls: {add: 20}, respiratoryRate: {add: 15}, temp: {set: 36.9}},
         measures: [measure.freeze, measure.compression, measure.emergencyCall, measure.sterileCover, measure.lunch, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma, causes.bleeding, causes.sunStroke, causes.hypothermia, causes.hyperventilation, causes.wounds]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma, causes.bleeding, causes.sunStroke, causes.hypothermia, causes.hyperventilation, causes.wounds],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.wounds,
@@ -221,8 +275,10 @@ export const basisCases = [
         skincolor: "",
         vitalEffects: {},
         measures: [measure.sterileCover, measure.stopBleeding, measure.flatStorage, measure.selfProtection],
-        contraindications: [],
-        canCombineWith: [causes.asthma,causes.bleeding, causes.sunStroke, causes.hypothermia, causes.hyperventilation]
+        contraindications: [measure.HLW, measure.AED],
+        canCombineWith: [causes.asthma,causes.bleeding, causes.sunStroke, causes.hypothermia, causes.hyperventilation],
+        unconscious : true,
+        cardiacArrest :false,
     },
     {
         typ: causes.headInjury,
@@ -231,7 +287,9 @@ export const basisCases = [
         vitalEffects: {puls: {add: 20}},
         measures: [measure.flatStorage, measure.warmth, measure.emergencyCall, measure.moreOxygen, measure.selfProtection],
         contraindications: [measure.shockPosition],
-        canCombineWith: [causes.bleeding, causes.wounds]
+        canCombineWith: [causes.bleeding, causes.wounds],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.skullFracture,
@@ -240,7 +298,9 @@ export const basisCases = [
         vitalEffects: {puls: {add: 20}},
         measures: [measure.flatStorage, measure.emergencyCall, measure.selfProtection],
         contraindications: [measure.shockPosition],
-        canCombineWith: [causes.bleeding, causes.wounds]
+        canCombineWith: [causes.bleeding, causes.wounds],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.barotrauma,
@@ -249,7 +309,9 @@ export const basisCases = [
         vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 15}, bloodPressure: {drop: bloodPressure.medium}},
         measures: [measure.elevatedPosition, measure.drink, measure.emergencyCall, measure.drink, measure.warmth, measure.selfProtection],
         contraindications: [measure.shockPosition],
-        canCombineWith: []
+        canCombineWith: [],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.hyperventilation,
@@ -258,7 +320,9 @@ export const basisCases = [
         vitalEffects: {puls: {add: 50}, respiratoryRate: {add: 30}, bloodPressure: {drop: bloodPressure.medium}},
         measures: [measure.calmDown, measure.drink, measure.elevatedPosition, measure.selfProtection],
         contraindications: [measure.oxygen, measure.moreOxygen],
-        canCombineWith: []
+        canCombineWith: [],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.bleeding,
@@ -267,7 +331,9 @@ export const basisCases = [
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 10}},
         measures: [measure.flatStorage, measure.oxygen, measure.warmth, measure.pressureBandage,measure.calmDown, measure.selfProtection],
         contraindications: [],
-        canCombineWith: [causes.sunStroke, causes.wounds, causes.hyperventilation,causes.hypothermia]
+        canCombineWith: [causes.sunStroke, causes.wounds, causes.hyperventilation,causes.hypothermia],
+        unconscious : true,
+        cardiacArrest :true,
     },
     {
         typ: causes.backInjury,
@@ -276,6 +342,8 @@ export const basisCases = [
         vitalEffects: {puls: {add: 30}, respiratoryRate: {add: 10}},
         measures: [measure.flatStorage, measure.oxygen, measure.warmth, measure.emergencyCall, measure.spineboard, measure.HWS, measure.selfProtection],
         contraindications: [measure.shockPosition],
-        canCombineWith: [causes.wounds, causes.bleeding]
+        canCombineWith: [causes.wounds, causes.bleeding],
+        unconscious : true,
+        cardiacArrest :false,
     },*/
 ]

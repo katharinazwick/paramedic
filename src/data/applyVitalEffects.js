@@ -2,7 +2,7 @@ import {bloodPressure} from "../enum/bloodPressure.js";
 
 export function applyVitalEffects(vitals, effects) {
     const result = {...vitals};
-
+    //den set benutzen wir aktuell nicht (haha)
     if (effects.puls?.add) result.puls += effects.puls.add;
     if (effects.puls?.set) result.puls = effects.puls.set;
 
@@ -11,10 +11,14 @@ export function applyVitalEffects(vitals, effects) {
 
     if (effects.temp?.set) result.temp = effects.temp.set;
 
+    if (effects.recap?.set) result.recap = effects.recap.set;
+
     if (effects.bloodPressure?.drop === bloodPressure.medium) {
         result.bloodPressure = "110/70"
-    } else if (effects.bloodPressure?.drop === bloodPressure.low) {result.bloodPressure = "90/60"}
-    else if (effects.bloodPressure?.drop === bloodPressure.high) {result.bloodPressure = "160/100"}
-
+    } else if (effects.bloodPressure?.drop === bloodPressure.low) {
+        result.bloodPressure = "90/60"
+    } else if (effects.bloodPressure?.drop === bloodPressure.high) {
+        result.bloodPressure = "160/100"
+    }
     return result;
 }

@@ -1,3 +1,4 @@
+
 export function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -14,13 +15,25 @@ export function combineCases(casesArray) {
 
     casesArray.forEach(c => {
         combined.symptoms.push(...c.symptoms);
+
         c.measures.forEach(m => combined.measures.add(m));
         c.contraindications.forEach(k => combined.contraindications.add(k));
+
         Object.assign(combined.vitalEffects, c.vitalEffects);
     });
+    removeMeasuresByContrasFromCombined(combined);
+
     return {
         ...combined,
         measures: [...combined.measures],
         contraindications: [...combined.contraindications]
     };
 }
+
+function removeMeasuresByContrasFromCombined(combined) {
+    combined.contraindications.forEach(ci => {
+        combined.measures.delete(ci);
+    });
+}
+
+

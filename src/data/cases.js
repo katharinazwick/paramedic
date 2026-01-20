@@ -23,7 +23,7 @@ export function generateCases(numCases = 200) {
         const health = healthStatuts[i % healthStatuts.length];
 
         // Basale Vitalwerte
-        let vitals = { puls: 80, respiratoryRate: 14, bloodPressure: "120/80", temp: 36.6 };
+        let vitals = { puls: 80, respiratoryRate: 14, bloodPressure: "120/80", temp: 36.6 , recap: 1};
 
         // VitalEffects aus Basisfall anwenden
         vitals = applyVitalEffects(vitals, combined.vitalEffects);
