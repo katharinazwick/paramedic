@@ -19,7 +19,7 @@ export function generateCases(numCases = 200) {
         const combined = combineCases(picked);
 
         // Alter und Gesundheitsstatus bestimmen
-        const age = 4 + (i % 85);
+        let age = 4 + (i % 85);
         const health = healthStatuts[i % healthStatuts.length];
 
         // Basale Vitalwerte
@@ -29,8 +29,15 @@ export function generateCases(numCases = 200) {
         vitals = applyVitalEffects(vitals, combined.vitalEffects);
 
         // Alters- und Healthmodifikator
-        if (age < 14 || age > 60) vitals.puls *= 1.25;
-        if (health === "schlecht") vitals.puls += 10;
+        if (age < 14 || age > 60) {
+            vitals.puls *= 1.4;
+            age += " 👼🏼"
+            //blutdruck altersabhängig
+        } else if (age > 60) {
+            vitals.puls *= 1.3;
+            age += " 👴🏾👵🏻"
+        }
+        if (health === "schlecht 😞") vitals.puls += 10;
 
         // Anzeigenformat
         const pulsDisplay = `${Math.round(vitals.puls)}/min`;
