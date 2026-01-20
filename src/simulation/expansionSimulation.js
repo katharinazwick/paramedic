@@ -5,11 +5,13 @@ import {dom} from "../ui/dom.js";
 import {enableGame} from "../ui/enableDisable.js";
 import {renderSelect} from "../selects/renderSelects.js";
 import {validateHandoverFields} from "../handover/validation.js";
+import {resetAll} from "./resetSimulation.js";
+import {endSimulation} from "./endSimulation.js";
 
 export function expansionSimulation() {
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     let html = `
-        <h2>Übergabe an den Rettungsdienst</h2>
+        <h2>🚑 Übergabe an den Rettungsdienst</h2>
 
         <div class="summary-section">
             <h3>Ursprungssituation</h3>
@@ -46,5 +48,16 @@ export function expansionSimulation() {
     dom.summaryContent.innerHTML = html;
     dom.summaryModal.classList.remove("hidden");
     enableGame(false);
-    validateHandoverFields()
 }
+
+document.addEventListener("click", (e) => {
+    if (e.target.id === "handoverConfirm") {
+        validateHandoverFields(gameState.current);
+    }
+});
+
+document.addEventListener("click", (e) => {
+    if (e.target.id === "endBtn") {
+        endSimulation();
+    }
+});

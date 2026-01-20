@@ -13,4 +13,8 @@ export const dom = {
     summaryModal: document.getElementById('summary'),
     summaryContent: document.getElementById('summaryContent'),
     closeSummary: document.getElementById('closeSummary'),
+    timerText: document.getElementById('timerText'),
+    timerBar: document.getElementById('timerBar'),
+    bar: document.getElementById('statusBar'),
+
 };

@@ -12,7 +12,13 @@ export function endSimulation() {
             resultText = '✅ <strong>Patient stabilisiert</strong> – alle Maßnahmen korrekt durchgeführt.';
             break;
         case "contra":
-            resultText = '❌ <strong>Patient verstorben</strong> – Kontraindikation angewendet';
+            resultText = '❌ <strong>Patient verstorben</strong> – zu viele Kontraindikationen angewendet';
+            break;
+        case "justBarely":
+            resultText = '✅ <strong>Patient stabilisiert</strong> – dir sind ein Paar Fehler unterlaufen';
+            break;
+        case "ownDeath":
+            resultText = '☠️ <strong>Du & der Patient seid verstorben</strong> – mehrfaches vergessen der Eigensicherung';
             break;
         /*case "timeout":
             resultText = '⚠ <strong>Patient verstorben</strong> – zu lange keine wirksamen Maßnahmen.';
