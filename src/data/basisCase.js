@@ -3,7 +3,7 @@ import {causes} from "../enum/causes.js";
 import {bloodPressure} from "../enum/bloodPressure.js";
 // & contras
 export const basisCases = [
-    {
+    /*{
         typ: causes.asthma,
         symptoms: ["TEST"],
         skincolor: "zyanotisch",
@@ -25,8 +25,8 @@ export const basisCases = [
         unconscious : true,
         cardiacArrest :true,
         condition: "",
-    },
-    /*{
+    },*/
+    {
         typ: causes.asthma,
         symptoms: ["pfeifende Atmung", "verlängerte Ausatmung"],
         skincolor: "zyanotisch",
@@ -345,5 +345,5 @@ export const basisCases = [
         canCombineWith: [causes.wounds, causes.bleeding],
         unconscious : true,
         cardiacArrest :false,
-    },*/
+    },
 ]

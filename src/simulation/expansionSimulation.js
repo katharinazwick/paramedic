@@ -11,7 +11,7 @@ import {endSimulation} from "./endSimulation.js";
 export function expansionSimulation() {
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     let html = `
-        <h2>🚑 Übergabe an den Rettungsdienst (bei 2 Ursachen gleichzeitg ist ein Bug</h2>
+        <h2>🚑 Übergabe an den Rettungsdienst</h2>
 
         <div class="summary-section">
             <h3>Ursprungssituation</h3>
