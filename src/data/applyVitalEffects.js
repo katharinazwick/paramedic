@@ -1,6 +1,6 @@
 import {bloodPressure} from "../enum/bloodPressure.js";
 
-export function applyVitalEffects(vitals, effects) {
+export function applyVitalEffects(vitals, effects ) {
     const result = {...vitals};
     //den set benutzen wir aktuell nicht (haha)
     if (effects.puls?.add) result.puls += effects.puls.add;

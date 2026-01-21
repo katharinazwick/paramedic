@@ -10,7 +10,8 @@ export function combineCases(casesArray) {
         skincolor: casesArray[0].skincolor,
         vitalEffects: {},
         measures: new Set(),
-        contraindications: new Set()
+        contraindications: new Set(),
+        negativeMeasures: new Set(),
     };
 
     casesArray.forEach(c => {
@@ -18,6 +19,7 @@ export function combineCases(casesArray) {
 
         c.measures.forEach(m => combined.measures.add(m));
         c.contraindications.forEach(k => combined.contraindications.add(k));
+        c.negativeMeasures.forEach(k => combined.negativeMeasures.add(k));
 
         Object.assign(combined.vitalEffects, c.vitalEffects);
     });
@@ -26,7 +28,8 @@ export function combineCases(casesArray) {
     return {
         ...combined,
         measures: [...combined.measures],
-        contraindications: [...combined.contraindications]
+        contraindications: [...combined.contraindications],
+        negativeMeasures: [...combined.negativeMeasures],
     };
 }
 
@@ -34,6 +37,21 @@ function removeMeasuresByContrasFromCombined(combined) {
     combined.contraindications.forEach(ci => {
         combined.measures.delete(ci);
     });
+    combined.measures.forEach(ci => {
+        combined.negativeMeasures.delete(ci);
+    })
 }
+
+function canCasesBeCombined(casesArray) {
+    return casesArray.every(a =>
+        casesArray.every(b => {
+            if (a === b) return true;
+
+            return Array.isArray(a.canCombineWith)
+                && a.canCombineWith.includes(b.typ);
+        })
+    );
+}
+
 
 

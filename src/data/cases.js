@@ -17,6 +17,10 @@ export function generateCases(numCases = 200) {
         }
 
         const combined = combineCases(picked);
+        if(!combined){
+            i--;
+            continue;
+        }
 
         // Alter und Gesundheitsstatus bestimmen
         let age = 4 + (i % 85);
@@ -66,7 +70,8 @@ export function generateCases(numCases = 200) {
             preExistingConditions: preExistingConditions[i % preExistingConditions.length],
             medications: medications[i % medications.length],
             measures: combined.measures,
-            contraindications: combined.contraindications
+            contraindications: combined.contraindications,
+            negativeMeasures: combined.negativeMeasures,
         });
     }
     return cases;
