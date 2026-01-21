@@ -42,16 +42,4 @@ function removeMeasuresByContrasFromCombined(combined) {
     })
 }
 
-function canCasesBeCombined(casesArray) {
-    return casesArray.every(a =>
-        casesArray.every(b => {
-            if (a === b) return true;
-
-            return Array.isArray(a.canCombineWith)
-                && a.canCombineWith.includes(b.typ);
-        })
-    );
-}
-
-
 

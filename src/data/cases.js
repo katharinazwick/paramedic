@@ -9,18 +9,21 @@ export const cases = [];
 export function generateCases(numCases = 200) {
     for (let i = 1; i <= numCases; i++) {
         // 1–2 Basisfälle zufällig wählen
-        const pickCount = Math.random() < 0.3 ? 2 : 1; // 30% Chance 2 Fälle
+        const pickCount = Math.random() < 0.3 ? 2 : 2; // 30% Chance 2 Fälle
         const picked = [];
-        while (picked.length < pickCount) {
-            const candidate = pickRandom(basisCases);
-            if (!picked.includes(candidate)) picked.push(candidate);
-        }
+        const first = pickRandom(basisCases);
 
-        const combined = combineCases(picked);
-        if(!combined){
-            i--;
-            continue;
+        picked.push(first);
+
+        if (pickCount === 2) {
+            const compatibleCandidates = getCompatibleCandidates(picked, basisCases.filter(c => c !== first));
+
+            if (compatibleCandidates.length > 0) {
+                const second = pickRandom(compatibleCandidates);
+                picked.push(second);
+            }
         }
+        const combined = combineCases(picked);
 
         // Alter und Gesundheitsstatus bestimmen
         let age = 4 + (i % 85);
@@ -75,4 +78,13 @@ export function generateCases(numCases = 200) {
         });
     }
     return cases;
+}
+
+function getCompatibleCandidates(existingCases, candidates) {
+    return candidates.filter(candidate =>
+        existingCases.every(ec =>
+            ec.canCombineWith.includes(candidate.typ) &&
+            candidate.canCombineWith.includes(ec.typ)
+        )
+    );
 }
