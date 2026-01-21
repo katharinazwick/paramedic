@@ -11,7 +11,7 @@ import {updateTimerUI} from "../timer/updateTimer.js";
 
 export function resetAll() {
     generateCases();
-    updateTimerUI(300000,300000)
+    updateTimerUI(180000,180000)
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     gameState.current = null;
     gameState.userValues = {};

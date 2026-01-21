@@ -14,20 +14,19 @@ export function unconscious() {
     if (current.cardiacArrest === false) {
         // 50% bewusstlos, 50% bleibt wach
         const rand = Math.random();
-        if (rand < 0.5) {
+        if (rand < 0.6) {
             current.unconscious = true;
             current.cardiacArrest = false;
         }
     } else {
         // Patienten, die auch Atemstillstand dürfen
-        // 25% bewusstlos, 25% bewusstlos + Atemstillstand, 50% bleibt wach
         const rand = Math.random();
-        if (rand < 0.25) {
+        if (rand < 0.3) {
             current.unconscious = true;
             current.cardiacArrest = false;
             current.condition = condition[0];
             gameState.endReason = "unconscious";
-        } else if (rand < 0.25) {
+        } else if (rand < 0.3) {
             current.unconscious = false;
             current.cardiacArrest = true;
             current.condition = condition[1];
