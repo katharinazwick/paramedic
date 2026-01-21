@@ -1,4 +1,3 @@
-import {gameState} from "../state/gameState.js";
 import {getRawHandoverValues} from "./rawValues.js";
 import {isCorrect} from "./isCorrect.js";
 import {setFeedbackForInput} from "./feedback.js";

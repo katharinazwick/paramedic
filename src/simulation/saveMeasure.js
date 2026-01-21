@@ -59,7 +59,7 @@ export function saveMeasure() {
     } else if (isNegative) {
         gameState.current.stateProgress -= 0.2;
         updateStateUI();
-        log(`🪫 Keine hilfreiche Maßnahme (${text}`);
+        log(`🪫 Keine hilfreiche Maßnahme (${text})`);
     }else {
         log(`⚠ neutrale Maßnahme: ${text}`);
     }
