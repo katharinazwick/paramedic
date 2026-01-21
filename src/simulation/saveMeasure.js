@@ -44,6 +44,8 @@ export function saveMeasure() {
     // ❌ Kontraindikation (exakte Übereinstimmung)
     const isContra = gameState.current.contraindications.includes(text);
 
+    const isNegative = gameState.current.negativeMeasures.includes(text);
+
     if (isContra) {
         gameState.current.stateProgress -= 0.5;
         updateStateUI();
@@ -54,7 +56,11 @@ export function saveMeasure() {
         updateStateUI();
         log(`✔ richtige Maßnahme (${text}) → +${gameState.current.stateSteps.toFixed(2)}`);
         gameState.current.fullProgress += gameState.current.fullStep;
-    } else {
+    } else if (isNegative) {
+        gameState.current.stateProgress -= 0.2;
+        updateStateUI();
+        log(`🪫 Keine hilfreiche Maßnahme (${text}`);
+    }else {
         log(`⚠ neutrale Maßnahme: ${text}`);
     }
     const allAllowed = gameState.current.measures.every(m =>
@@ -62,13 +68,14 @@ export function saveMeasure() {
     );
 
     if (allAllowed && (gameState.current.unconscious || gameState.current.cardiacArrest)) {
-        log(`✅ Patient stabilisiert – übergebe ihn an den Rettungsdienst`);
+        log(`🚑 Patient stabilisiert – übergebe ihn an den Rettungsdienst`);
         gameState.endReason = "unconscious";
+        disable();
         return;
     }
     if (gameState.current.fullProgress >= 1) {
         gameState.endReason = "justBarely"
-        log('✅ Patient stabilisiert – Zeit für Betreuung');
+        log('🔋 Patient stabilisiert – Zeit für Betreuung');
     }
     if (gameState.current.stateProgress <= 0) {
         gameState.endReason = "contra";
