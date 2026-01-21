@@ -16,8 +16,8 @@
     <section class="controls">
         <button id="startBtn" class="btn primary">Neue Simulation starten</button>
         <button id="endBtn" class="btn danger" disabled>Simulation auswerten</button>
-        <button id="resetBtn" class="btn" disabled>Zurücksetzen</button>
         <button id="expansionBtn" class="btn expansion" disabled>an RTW übergeben</button>
+        <button id="resetBtn" class="btn" disabled>Zurücksetzen</button>
     </section>
 
     <section class="game">
@@ -72,7 +72,9 @@
         </div>
     </section>
 
-    </div>
+    <section id="emailBtnDiv">
+        <button id="emailBtn" class="btn email">Anmerkungen & Feedback</button>
+    </section>
 
     <footer style="margin-top: 40px; text-align: center; font-size: 0.9em;">
         <p><a href="./impressum.html">Impressum & Datenschutzerklärung</a></p>
@@ -81,7 +83,7 @@
 </main>
 
 <script type="module" src="src/main.js"></script>
-
+<script type="module" src="src/mail/openMail.js"></script>
 
 
 </body>
