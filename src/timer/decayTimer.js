@@ -18,7 +18,6 @@ export function startDecayTimer() {
     gameState.decayTimer = setInterval(() => {
         const elapsed = Date.now() - startTime;
         const remaining = Math.max(TOTAL_TIME - elapsed, 0);
-
         // ⏱ Anzeige aktualisieren
         updateTimerUI(remaining, TOTAL_TIME);
 

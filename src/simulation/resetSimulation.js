@@ -7,9 +7,11 @@ import {askValue} from "./askValue.js";
 import {saveMeasure} from "./saveMeasure.js";
 import {endSimulation} from "./endSimulation.js";
 import {expansionSimulation} from "./expansionSimulation.js";
+import {updateTimerUI} from "../timer/updateTimer.js";
 
 export function resetAll() {
     generateCases();
+    updateTimerUI(300000,300000)
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     gameState.current = null;
     gameState.userValues = {};

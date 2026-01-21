@@ -10,6 +10,7 @@ import {endSimulation} from "./endSimulation.js";
 
 export function expansionSimulation() {
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
+
     let html = `
         <h2>🚑 Übergabe an den Rettungsdienst</h2>
 
@@ -23,7 +24,7 @@ export function expansionSimulation() {
 
             <div class="handover-form">
                 ${renderSelect("Ursache 1", "cause1", causesArray)}
-                ${renderSelect("Ursache 2 (nur wenn vorhanden)", "cause2", causesArray)}
+                ${renderSelect("Ursache 2", "cause2", causesArray)}
                 ${renderSelect("Vorerkrankungen", "preExistingConditions", preExistingConditions)}
                 ${renderSelect("Allergien", "allergies", allergy)}
                 ${renderSelect("Medikamente", "medications", medications)}
@@ -46,9 +47,14 @@ export function expansionSimulation() {
             <button id="endBtn" class="btn primary">Simulation auswerten</button>
         </div>
     `;
-
     dom.summaryContent.innerHTML = html;
     dom.summaryModal.classList.remove("hidden");
+
+    const causes = gameState.current.typ
+        .split("+")
+        .map(c => c.trim());
+    if (causes.length <= 1) document.querySelector('select[name="cause2"]').disabled = true;
+
     enableGame(false);
 }
 

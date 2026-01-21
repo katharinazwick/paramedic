@@ -6,7 +6,6 @@ import {condition} from "../enum/sampler.js";
 
 //funktioniert nicht
 export function unconscious() {
-    console.log("hallo")
     if (!gameState.current) return;
 
     const current = gameState.current;
