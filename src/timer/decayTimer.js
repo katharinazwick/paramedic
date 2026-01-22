@@ -3,15 +3,23 @@ import {updateTimerUI} from "./updateTimer.js";
 import {unconscious} from "./unconscious.js";
 import {disableQueryMeasure} from "../ui/enableDisable.js";
 import {breakTimer} from "./breakTimer.js";
+import {dom} from "../ui/dom.js";
 
-export const TOTAL_TIME = 2 * 60 * 1000;
 
 export function startDecayTimer() {
+     const TOTAL_TIME = 2 * 60 * 1000;
+
     const UNCONSCIOUS_TIME = 30 * 1000;
 
     if (gameState.decayTimer) {
         clearInterval(gameState.decayTimer);
+        gameState.decayTimer = null;
     }
+    gameState.decayStart = null;
+    gameState.decayElapsed = 0;
+    gameState.isPaused = false;
+    dom.breakBtn.classList.toggle("paused", false);
+
 
     gameState.decayStart = Date.now() - (gameState.decayElapsed || 0);
     gameState.isBreak = false;
@@ -19,7 +27,7 @@ export function startDecayTimer() {
     let unconsciousTriggered = gameState.decayElapsed >= UNCONSCIOUS_TIME;
 
     gameState.decayTimer = setInterval(() => {
-        if (gameState.isBreak) return; // ⏸ Timer anhalten
+        if (gameState.isBreak) return;
 
         const elapsed = Date.now() - gameState.decayStart;
         gameState.decayElapsed = elapsed;
@@ -42,4 +50,5 @@ export function startDecayTimer() {
     }, 200);
 
     breakTimer();
+    return  TOTAL_TIME;
 }

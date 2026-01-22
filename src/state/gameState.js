@@ -3,7 +3,6 @@ export const gameState = {
     userValues: {},
     userMeasures: [],
     askedHistory: [],
-    lastActionTime: null,
     decayTimer: null,
     decayStart: null,
     decayElapsed: 0,

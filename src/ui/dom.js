@@ -16,5 +16,7 @@ export const dom = {
     timerText: document.getElementById('timerText'),
     timerBar: document.getElementById('timerBar'),
     bar: document.getElementById('statusBar'),
+     breakBtn : document.getElementById("breakBtn"),
+
 
 };

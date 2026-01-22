@@ -1,14 +1,14 @@
 import {gameState} from "../state/gameState.js";
 import {disableQueryMeasure, enableQueryMeasure} from "../ui/enableDisable.js";
+import {dom} from "../ui/dom.js";
 
 export function breakTimer() {
 
-    const breakBtn = document.getElementById("breakBtn");
     let isBreak = false;
-    breakBtn.addEventListener("click", () => {
+    dom.breakBtn.addEventListener("click", () => {
         isBreak = !isBreak;
 
-        breakBtn.classList.toggle("paused", isBreak);
+        dom.breakBtn.classList.toggle("paused", isBreak);
         if (isBreak) {
             gameState.isBreak = true;
             disableQueryMeasure();

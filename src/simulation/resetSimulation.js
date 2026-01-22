@@ -8,11 +8,12 @@ import {saveMeasure} from "./saveMeasure.js";
 import {endSimulation} from "./endSimulation.js";
 import {expansionSimulation} from "./expansionSimulation.js";
 import {updateTimerUI} from "../timer/updateTimer.js";
-import {TOTAL_TIME} from "../timer/decayTimer.js";
+import {startDecayTimer} from "../timer/decayTimer.js";
 
 export function resetAll() {
+    //const TOTAL_TIME = startDecayTimer()
     generateCases();
-    updateTimerUI(TOTAL_TIME,TOTAL_TIME)
+    updateTimerUI(2000,2000)
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     gameState.current = null;
     gameState.userValues = {};
