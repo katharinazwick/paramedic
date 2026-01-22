@@ -1,5 +1,5 @@
 import {basisCases} from "./basisCase.js";
-import {healthStatuts, allergy, preExistingConditions, medications} from "../strings/sampler.js"; // falls vorhanden
+import {healthStatuts, allergy, preExistingConditions, medications, condition} from "../strings/sampler.js";
 import {combineCases, pickRandom} from "./combineCases.js";
 import {generateInitialSituationNeutral} from "../strings/initialSituation/initialSituation.js";
 import {applyVitalEffects} from "./applyVitalEffects.js";
@@ -85,6 +85,7 @@ export function generateCases(numCases = 200) {
             measures: combined.measures,
             contraindications: combined.contraindications,
             negativeMeasures: combined.negativeMeasures,
+            condition: condition[2],
         });
     }
     return cases;

@@ -70,21 +70,3 @@ export function expansionSimulation() {
         });
     }
 }
-/*
-document.addEventListener("click", (e) => {
-    if (e.target.id === "handoverConfirm") {
-        validateHandoverFields(gameState.current);
-
-        const endBtn = document.getElementById("endBtn");
-        if (endBtn) {
-            endBtn.disabled = false;
-        }
-    }
-});
-
-
-document.addEventListener("click", (e) => {
-    if (e.target.id === "endBtn") {
-        endSimulation();
-    }
-});*/
