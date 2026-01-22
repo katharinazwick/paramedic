@@ -5,8 +5,8 @@ import {unconscious} from "./unconscious.js";
 import {disable} from "../ui/enableDisable.js";
 
 export function startDecayTimer() {
-    const TOTAL_TIME = 3 * 60 * 1000; // 5 Minuten
-    const UNCONSCIOUS_TIME = 60 * 1000; // 2 Minuten
+    const TOTAL_TIME = 2 * 60 * 1000; // 5 Minuten
+    const UNCONSCIOUS_TIME = 30 * 1000; // 2 Minuten
 
     if (gameState.decayTimer) {
         clearInterval(gameState.decayTimer);

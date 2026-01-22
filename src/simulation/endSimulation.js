@@ -20,7 +20,7 @@ export function endSimulation() {
         case "ownDeath":
             resultText = '☠️ <strong>Du & der Patient seid verstorben</strong> – mehrfaches vergessen der Eigensicherung';
             break;
-            case "unconscious":
+        case "unconscious":
             resultText = '🔋️ <strong>Patient stabilisiert</strong> – Notsituation erfolgreich bewältigt';
             break;
         default:
@@ -44,10 +44,31 @@ export function endSimulation() {
     if (gameState.userMeasures.length === 0) html += `<p><em>Keine Maßnahmen gespeichert.</em></p>`;
     else {
         html += `<ul>`;
-        for (const m of gameState.userMeasures) {
+        /*for (const m of gameState.userMeasures) {
             const match = correct.measures.find(cm => cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase()));
+            const errorMatch = correct.negativeMeasures.find(cm => cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase())) ||correct.contraindications.find(cm => cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase())) ;
             html += `<li>${m} ${match ? '<span style="color:#8ef08e">✔</span>' : '<span style="color:#ff9b9b">✖</span>'}</li>`;
+        }*/
+        for (const m of gameState.userMeasures) {
+            const match = correct.measures.find(cm =>
+                cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase())
+            );
+
+            const errorMatch = correct.negativeMeasures.find(cm =>
+                cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase())
+            ) || correct.contraindications.find(cm =>
+                cm.toLowerCase().includes(m.toLowerCase()) || m.toLowerCase().includes(cm.toLowerCase())
+            );
+
+            if (match) {
+                html += `<li>${m} <span style="color:#8ef08e">✔</span></li>`;
+            } else if (errorMatch) {
+                html += `<li>${m} <span style="color:#ff9b9b">✖</span></li>`;
+            } else {
+                html += `<li>${m} <span style="color:cornflowerblue">🆗</span></li>`;
+            }
         }
+
         html += `</ul>`;
     }
 

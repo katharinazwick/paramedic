@@ -40,7 +40,7 @@ export function unconscious() {
     // Maßnahmen anpassen
     if (current.unconscious) {
         // a) Maßnahmen entfernen, die bei Bewusstlosigkeit ungeeignet sind
-        const forbidden = [measure.calmDown, measure.activity, measure.secretManeuver, measure.elevatedPosition, measure.bag, measure.compression, measure.freeze, measure.frozenPlace, measure.activity, measure.medication, measure.oxygen, measure.moreOxygen, measure.shockPosition, measure.spineboard, measure.drink, measure.glucose, measure.measureTime];
+        const forbidden = [measure.calmDown,measure.flatStorage, measure.activity, measure.secretManeuver, measure.elevatedPosition, measure.bag, measure.freeze, measure.frozenPlace, measure.activity, measure.medication,  measure.drink, measure.glucose, measure.measureTime];
         current.measures = current.measures.filter(m => !forbidden.includes(m));
 
         // b) Standardmaßnahmen für Bewusstlosigkeit hinzufügen
