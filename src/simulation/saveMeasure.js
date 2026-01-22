@@ -1,6 +1,6 @@
 import {dom} from "../ui/dom.js";
 import {gameState} from "../state/gameState.js";
-import {measure} from "../enum/measure.js";
+import {measure} from "../strings/measure.js";
 import {log} from "../ui/log.js";
 import {disable} from "../ui/enableDisable.js";
 import {updateStateUI} from "../ui/updateUi.js";

@@ -1,8 +1,8 @@
 import {gameState} from "../state/gameState.js";
-import {measure} from "../enum/measure.js";
+import {measure} from "../strings/measure.js";
 import {log} from "../ui/log.js";
 import {updateStateUI} from "../ui/updateUi.js";
-import {condition} from "../enum/sampler.js";
+import {condition} from "../strings/sampler.js";
 
 //funktioniert nicht
 export function unconscious() {

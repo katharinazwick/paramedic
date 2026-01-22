@@ -1,11 +1,10 @@
 import {gameState} from "../state/gameState.js";
-import {causesArray} from "../enum/causes.js";
-import {allergy, condition, medications, preExistingConditions} from "../enum/sampler.js";
+import {causesArray} from "../strings/causes.js";
+import {allergy, condition, medications, preExistingConditions} from "../strings/sampler.js";
 import {dom} from "../ui/dom.js";
 import {enableGame} from "../ui/enableDisable.js";
 import {renderSelect} from "../selects/renderSelects.js";
 import {validateHandoverFields} from "../handover/validation.js";
-import {resetAll} from "./resetSimulation.js";
 import {endSimulation} from "./endSimulation.js";
 
 export function expansionSimulation() {
@@ -43,8 +42,8 @@ export function expansionSimulation() {
         </div>
 
         <div class="modal-actions">
-            <button id="handoverConfirm" class="btn primary">Übergabe bestätigen</button>
-            <button id="endBtn" class="btn primary">Simulation auswerten</button>
+            <button id="handoverConfirm" class="btn confirm">Übergabe bestätigen</button>
+            <button id="endBtn" class="btn danger">Simulation auswerten</button>
         </div>
     `;
     dom.summaryContent.innerHTML = html;
@@ -56,16 +55,36 @@ export function expansionSimulation() {
     if (causes.length <= 1) document.querySelector('select[name="cause2"]').disabled = true;
 
     enableGame(false);
-}
 
+    /*const handoverBtn = document.getElementById("handoverConfirm");
+    const endBtn = document.getElementById("endBtn");
+
+    if (handoverBtn && endBtn) {
+        handoverBtn.addEventListener("click", () => {
+            validateHandoverFields(gameState.current);
+            endBtn.disabled = false; // ✅ Button aktivieren
+        });
+
+        endBtn.addEventListener("click", () => {
+            endSimulation();
+        });
+    }*/
+}
+/*
 document.addEventListener("click", (e) => {
     if (e.target.id === "handoverConfirm") {
         validateHandoverFields(gameState.current);
+
+        const endBtn = document.getElementById("endBtn");
+        if (endBtn) {
+            endBtn.disabled = false;
+        }
     }
 });
+
 
 document.addEventListener("click", (e) => {
     if (e.target.id === "endBtn") {
         endSimulation();
     }
-});
+});*/

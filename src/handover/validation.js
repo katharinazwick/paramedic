@@ -7,7 +7,7 @@ export function validateHandoverFields(current) {
     const inputs = document.querySelectorAll(".handover-form input, .handover-form select");
     const raw = getRawHandoverValues(current);
 
-    disableExpansion()
+    disableExpansion();
 
     inputs.forEach(input => {
         const name = input.name;

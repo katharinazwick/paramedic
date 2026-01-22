@@ -53,7 +53,6 @@ export function endSimulation() {
 
     const missing = correct.measures.filter(x => !gameState.userMeasures.includes(x));
     html += `<h3>Fehlende Maßnahmen</h3><p>${missing.join(', ')}</p>`;
-
     dom.summaryContent.innerHTML = html;
     dom.summaryModal.classList.remove('hidden');
     enableGame(false);

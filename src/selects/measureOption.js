@@ -1,4 +1,4 @@
-import {measure} from "../enum/measure.js";
+import {measure} from "../strings/measure.js";
 
 const QUERY_FIELDS = Object.values(measure).map(value => ({
     key: value,

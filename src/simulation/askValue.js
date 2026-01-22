@@ -1,7 +1,7 @@
 import {dom} from "../ui/dom.js";
 import {gameState} from "../state/gameState.js";
 import {log} from "../ui/log.js";
-import {translationsENDE} from "../enum/translationDEEN.js";
+import {translationsENDE} from "../strings/translationDEEN.js";
 
 export function askValue() {
     let key = dom.queryInput.value;

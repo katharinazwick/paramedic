@@ -9,7 +9,7 @@ export function getRawHandoverValues(current) {
         allergies: current.allergy,
         medications: current.medications,
         condition: current.condition,
-        puls: parseInt(current.puls), // "120/min" → 120
+        puls: parseInt(current.puls),
         bloodPressure: current.bloodPressure
     };
 }
