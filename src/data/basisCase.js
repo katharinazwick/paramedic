@@ -187,7 +187,7 @@ export const basisCases = [
     },
     {
         typ: causes.hypoglycemia,
-        symptoms: [symptoms.sweat, symptoms.nausea],
+        symptoms: [symptoms.sweat, symptoms.nausea, symptoms.sweat],
         skinColor: skinColor.pale,
         vitalEffects: {puls: {set: 120}, temp: {set: 38.4}},
         measures: [measure.glucose, measure.oxygen, measure.warmth, measure.selfProtection],
@@ -222,7 +222,7 @@ export const basisCases = [
         cardiacArrest :false,
     },
     {
-        typ: causes.hypoglycemia,
+        typ: causes.hypothermia,
         symptoms: [symptoms.cold, symptoms.trembling],
         skinColor: skinColor.zyanotisch,
         vitalEffects: {puls: {set: 130}, respiratoryRate: {set: 24}, temp: {set: 32.4}, recap: {set: "> 20"}},

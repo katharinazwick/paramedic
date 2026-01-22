@@ -23,7 +23,7 @@ export function expansionSimulation() {
 
             <div class="handover-form">
                 ${renderSelect("Ursache 1", "cause1", causesArray)}
-                ${renderSelect("Ursache 2", "cause2", causesArray)}
+                ${renderSelect("Ursache 2 (falls vorhanden)", "cause2", causesArray)}
                 ${renderSelect("Vorerkrankungen", "preExistingConditions", preExistingConditions)}
                 ${renderSelect("Allergien", "allergies", allergy)}
                 ${renderSelect("Medikamente", "medications", medications)}

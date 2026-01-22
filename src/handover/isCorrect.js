@@ -2,7 +2,7 @@ export function isCorrect(expected, actual) {
     if (expected === undefined || expected=== null) return true;
 
     if (Array.isArray(expected)) {
-        if (expected.length === 1 && actual === "") {
+        if (expected.length === 1 && actual === "" && expected[0] === "") {
             return true;
         }
         return expected.includes(actual);
