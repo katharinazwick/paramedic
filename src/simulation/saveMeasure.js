@@ -2,7 +2,7 @@ import {dom} from "../ui/dom.js";
 import {gameState} from "../state/gameState.js";
 import {measure} from "../strings/measure.js";
 import {log} from "../ui/log.js";
-import {disable} from "../ui/enableDisable.js";
+import {disableQueryMeasure} from "../ui/enableDisable.js";
 import {updateStateUI} from "../ui/updateUi.js";
 import {renderMeasures} from "./renderMeasure.js";
 import {endSimulation} from "./endSimulation.js";
@@ -70,7 +70,7 @@ export function saveMeasure() {
     if (allAllowed && (gameState.current.unconscious || gameState.current.cardiacArrest)) {
         log(`🚑 Patient stabilisiert – übergebe ihn an den Rettungsdienst`);
         gameState.endReason = "unconscious";
-        disable();
+        disableQueryMeasure();
         return;
     }
     if (gameState.current.fullProgress >= 1) {

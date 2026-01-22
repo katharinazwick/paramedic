@@ -1,6 +1,6 @@
 function openEmail() {
     const email = "Katharina.Zwick@student.hpi.uni-potsdam.de";
-    const subject = encodeURIComponent("Anmerkung zum Spiel");
+    const subject = encodeURIComponent("Anmerkung zur Sanitätssimulation");
     const body = encodeURIComponent(
         "Hallo,\n\nich möchte folgende Anmerkungen machen:\n\n"
     );

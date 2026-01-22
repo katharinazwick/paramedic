@@ -26,7 +26,7 @@ export function generateCases(numCases = 200) {
         const combined = combineCases(picked);
 
         // Alter und Gesundheitsstatus bestimmen
-        let age = 4 + (i % 85);
+        let age = 12 + (i % 85);
         const health = healthStatuts[i % healthStatuts.length];
 
         // Basale Vitalwerte
@@ -48,8 +48,8 @@ export function generateCases(numCases = 200) {
             vitals.bloodPressureDiastole /= 1.8;
             age += " 👼🏼"
         } else if (age > 60) {
-            vitals.puls *= 1.3;
-            vitals.bloodPressureSystole *= 1.3;
+            vitals.puls *= 1.2;
+            vitals.bloodPressureSystole *= 1.1;
             vitals.bloodPressureDiastole *= 1.1;
             age += " 👴🏾👵🏻"
         }
