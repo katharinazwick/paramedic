@@ -9,8 +9,8 @@ import {updateStateUI} from "../ui/updateUi.js";
 export function startSimulation() {
 // zufällig eines der Szenarien wählen
     gameState.current = cases[Math.floor(Math.random() * cases.length)];
-    gameState.current.stateProgress = 0.5; // 50 %
-    gameState.current.fullProgress = 0; // 50 %
+    gameState.current.stateProgress = 0.5;
+    gameState.current.fullProgress = 0;
     gameState.current.stateSteps = 0.5 / gameState.current.measures.length;
     gameState.current.fullStep = 1 / gameState.current.measures.length;
     updateStateUI();

@@ -8,9 +8,14 @@ export function enableGame(b) {
     dom.measureInput.disabled = !b;
 }
 
-export function disable() {
+export function disableQueryMeasure() {
     dom.queryInput.disabled = true;
     dom.measureInput.disabled = true;
+}
+
+export function enableQueryMeasure() {
+    dom.queryInput.disabled = false;
+    dom.measureInput.disabled = false;
 }
 
 export function disableExpansion() {

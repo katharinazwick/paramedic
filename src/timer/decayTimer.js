@@ -1,37 +1,45 @@
 import {gameState} from "../state/gameState.js";
-import {expansionSimulation} from "../simulation/expansionSimulation.js";
 import {updateTimerUI} from "./updateTimer.js";
 import {unconscious} from "./unconscious.js";
-import {disable} from "../ui/enableDisable.js";
+import {disableQueryMeasure} from "../ui/enableDisable.js";
+import {breakTimer} from "./breakTimer.js";
+
+export const TOTAL_TIME = 2 * 60 * 1000;
 
 export function startDecayTimer() {
-    const TOTAL_TIME = 2 * 60 * 1000; // 5 Minuten
-    const UNCONSCIOUS_TIME = 30 * 1000; // 2 Minuten
+    const UNCONSCIOUS_TIME = 30 * 1000;
 
     if (gameState.decayTimer) {
         clearInterval(gameState.decayTimer);
     }
 
-    const startTime = Date.now();
-    let unconsciousTriggered = false;
+    gameState.decayStart = Date.now() - (gameState.decayElapsed || 0);
+    gameState.isBreak = false;
+
+    let unconsciousTriggered = gameState.decayElapsed >= UNCONSCIOUS_TIME;
 
     gameState.decayTimer = setInterval(() => {
-        const elapsed = Date.now() - startTime;
+        if (gameState.isBreak) return; // ⏸ Timer anhalten
+
+        const elapsed = Date.now() - gameState.decayStart;
+        gameState.decayElapsed = elapsed;
+
         const remaining = Math.max(TOTAL_TIME - elapsed, 0);
-        // ⏱ Anzeige aktualisieren
         updateTimerUI(remaining, TOTAL_TIME);
 
-        // 💤 Nach 3 Minuten unconscious()
+        // unconscious() auslösen
         if (!unconsciousTriggered && elapsed >= UNCONSCIOUS_TIME) {
             unconsciousTriggered = true;
             unconscious();
         }
 
-        // ☠️ Nach 5 Minuten endSimulation()
+        // Timer beenden
         if (elapsed >= TOTAL_TIME) {
             clearInterval(gameState.decayTimer);
             gameState.decayTimer = null;
-            disable()
+            disableQueryMeasure();
         }
     }, 200);
+
+    breakTimer();
 }

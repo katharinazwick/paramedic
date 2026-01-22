@@ -5,5 +5,8 @@ export const gameState = {
     askedHistory: [],
     lastActionTime: null,
     decayTimer: null,
+    decayStart: null,
+    decayElapsed: 0,
+    isBreak: false,
     endReason: null
 };
