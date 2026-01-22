@@ -42,12 +42,11 @@ export function generateCases(numCases = 200) {
         vitals = applyVitalEffects(vitals, combined.vitalEffects);
 
         // Alters- und Healthmodifikator
-        if (age < 14 || age > 60) {
+        if (age < 14) {
             vitals.puls *= 1.4;
             vitals.bloodPressureSystole /= 1.8;
             vitals.bloodPressureDiastole /= 1.8;
             age += " 👼🏼"
-            //blutdruck altersabhängig
         } else if (age > 60) {
             vitals.puls *= 1.3;
             vitals.bloodPressureSystole *= 1.3;

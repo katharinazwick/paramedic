@@ -14,8 +14,8 @@ export function expansionSimulation() {
         <h2>🚑 Übergabe an den Rettungsdienst</h2>
 
         <div class="summary-section">
-            <h3>Ursprungssituation</h3>
-            <p>${gameState.current.initialSituation}</p>
+            <h3>Symptome</h3>
+            <p>${gameState.current.symptom}</p>
         </div>
 
         <div class="summary-section">
