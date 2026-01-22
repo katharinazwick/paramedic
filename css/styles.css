@@ -78,13 +78,19 @@ body {
 .btn.danger {
     background: transparent;
     color: #ffb4b4;
-    border: 1px solid rgba(255, 80, 80, 0.2)
+    border: 1px solid rgba(255, 80, 80, 0.47)
 }
 
 .btn.expansion {
     background: transparent;
     color: #b4ffc3;
-    border: 1px solid rgba(118, 255, 80, 0.2)
+    border: 1px solid rgba(118, 255, 80, 0.4)
+}
+
+.btn.confirm {
+    background: transparent;
+    color: #b4d2ff;
+    border: 1px solid rgba(20, 67, 209, 0.78)
 }
 
 /*statusbar*/

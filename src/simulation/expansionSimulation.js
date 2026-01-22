@@ -43,7 +43,7 @@ export function expansionSimulation() {
 
         <div class="modal-actions">
             <button id="handoverConfirm" class="btn confirm">Übergabe bestätigen</button>
-            <button id="endBtn" class="btn danger">Simulation auswerten</button>
+            <button id="newEndBtn" class="btn danger" disabled>Simulation auswerten</button>
         </div>
     `;
     dom.summaryContent.innerHTML = html;
@@ -56,19 +56,19 @@ export function expansionSimulation() {
 
     enableGame(false);
 
-    /*const handoverBtn = document.getElementById("handoverConfirm");
-    const endBtn = document.getElementById("endBtn");
+    const handoverBtn = document.getElementById("handoverConfirm");
+    const endBtn = document.getElementById("newEndBtn");
 
     if (handoverBtn && endBtn) {
         handoverBtn.addEventListener("click", () => {
             validateHandoverFields(gameState.current);
-            endBtn.disabled = false; // ✅ Button aktivieren
+            endBtn.disabled = false;
         });
 
         endBtn.addEventListener("click", () => {
             endSimulation();
         });
-    }*/
+    }
 }
 /*
 document.addEventListener("click", (e) => {
