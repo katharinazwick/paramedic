@@ -7,7 +7,7 @@ export function combineCases(casesArray) {
     const combined = {
         typ: casesArray.map(c => c.typ).join(" + "),
         symptoms: [],
-        skincolor: casesArray[0].skincolor,
+        skinColor: casesArray[0].skinColor,
         vitalEffects: {},
         measures: new Set(),
         contraindications: new Set(),

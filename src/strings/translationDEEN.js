@@ -8,7 +8,7 @@ export const translationsENDE = {
     puls: "Puls 💓",
     respiratoryRate: "Atemfrequenz 🌬️",
     recap: "Rekap-Zeit",
-    skincolor: "Hautfarbe 🎨",
+    skinColor: "Hautfarbe 🎨",
     symptom: "Symptom",
     temp: "Temperatur 🤒️"
 };

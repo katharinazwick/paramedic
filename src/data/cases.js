@@ -1,7 +1,7 @@
-import { basisCases } from "./basisCase.js";
-import { healthStatuts, allergy, preExistingConditions, medications } from "../enum/sampler.js"; // falls vorhanden
-import {combineCases, pickRandom } from "./combineCases.js";
-import {generateInitialSituationNeutral} from "../enum/initialSituation/initialSituation.js";
+import {basisCases} from "./basisCase.js";
+import {healthStatuts, allergy, preExistingConditions, medications} from "../strings/sampler.js"; // falls vorhanden
+import {combineCases, pickRandom} from "./combineCases.js";
+import {generateInitialSituationNeutral} from "../strings/initialSituation/initialSituation.js";
 import {applyVitalEffects} from "./applyVitalEffects.js";
 
 export const cases = [];
@@ -30,26 +30,36 @@ export function generateCases(numCases = 200) {
         const health = healthStatuts[i % healthStatuts.length];
 
         // Basale Vitalwerte
-        let vitals = { puls: 80, respiratoryRate: 14, bloodPressure: "120/80", temp: 36.6 , recap: 1};
-
+        let vitals = {
+            puls: 80,
+            respiratoryRate: 14,
+            bloodPressureSystole: 120,
+            bloodPressureDiastole: 70,
+            temp: 36.6,
+            recap: "< 10",
+        };
         // VitalEffects aus Basisfall anwenden
         vitals = applyVitalEffects(vitals, combined.vitalEffects);
 
         // Alters- und Healthmodifikator
         if (age < 14 || age > 60) {
             vitals.puls *= 1.4;
+            vitals.bloodPressureSystole /= 1.8;
+            vitals.bloodPressureDiastole /= 1.8;
             age += " 👼🏼"
             //blutdruck altersabhängig
         } else if (age > 60) {
             vitals.puls *= 1.3;
+            vitals.bloodPressureSystole *= 1.3;
+            vitals.bloodPressureDiastole *= 1.1;
             age += " 👴🏾👵🏻"
         }
         if (health === "schlecht 😞") vitals.puls += 10;
 
         // Anzeigenformat
-        const pulsDisplay = `${Math.round(vitals.puls)}/min`;
+        const pulsDisplay = `${Math.round(Math.round(vitals.puls))}/min`;
         const respiratoryDisplay = `${Math.round(vitals.respiratoryRate)}/min`;
-        const bp = vitals.bloodPressure || "nicht messbar";
+        const bp = (Math.round(vitals.bloodPressureSystole) + "/" + Math.round(vitals.bloodPressureDiastole)) || "nicht messbar";
         const temp = vitals.temp ? `${vitals.temp} °C` : "unbekannt";
 
         // Push in das globale Array
@@ -63,12 +73,12 @@ export function generateCases(numCases = 200) {
             symptom: combined.symptoms.join(", "),
             age: age,
             health: health,
-            skincolor: combined.skincolor,
+            skinColor: combined.skinColor,
             bloodPressure: bp,
             puls: pulsDisplay,
             respiratoryRate: respiratoryDisplay,
             temp: temp,
-            recap: "< " + (combined.vitalEffects.recap) + " min",
+            recap: vitals.recap + " sek",
             allergy: allergy[i % allergy.length],
             preExistingConditions: preExistingConditions[i % preExistingConditions.length],
             medications: medications[i % medications.length],
