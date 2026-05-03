@@ -11,9 +11,9 @@ import {updateTimerUI} from "../timer/updateTimer.js";
 import {startDecayTimer} from "../timer/decayTimer.js";
 
 export function resetAll() {
-    //const TOTAL_TIME = startDecayTimer()
+    const TOTAL_TIME = startDecayTimer()
     generateCases();
-    updateTimerUI(2000,2000)
+    updateTimerUI(TOTAL_TIME,TOTAL_TIME)
     if (gameState.decayTimer) clearInterval(gameState.decayTimer);
     gameState.current = null;
     gameState.userValues = {};
